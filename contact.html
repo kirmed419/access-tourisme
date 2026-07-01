@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Access Tourisme</title>
+  <meta name="description" content="Contactez Access Tourisme : téléphone, WhatsApp, e-mail et adresse à Alger. Une équipe à votre écoute pour préparer votre voyage.">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/site/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/site/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/img/site/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="contact">
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <header id="site-header"></header>
+
+  <main id="main">
+    <section class="page-hero map-motif">
+      <div class="container">
+        <span class="eyebrow">Contact</span>
+        <h1>Parlons de votre voyage</h1>
+        <p>Une question, un projet de voyage ou besoin d'un conseil ? Notre équipe vous répond avec plaisir.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+
+          <!-- Coordonnées -->
+          <div data-aos="fade-right">
+            <span class="eyebrow">Nos coordonnées</span>
+            <h2 class="section-title" style="margin-bottom:1.5rem">Venez nous voir ou écrivez-nous</h2>
+            <ul class="contact-info" id="contact-info"></ul>
+            <a class="btn btn-wa btn-lg" id="contact-wa" href="#" target="_blank" rel="noopener" style="margin-top:.5rem">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" aria-hidden="true"><path fill="currentColor" d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.02zM12.05 20.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 5.83 2.42 8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg>
+              Discuter sur WhatsApp
+            </a>
+          </div>
+
+          <!-- Formulaire de contact -->
+          <div id="form-area" data-aos="fade-left">
+            <form class="form-card" id="contact-form" novalidate>
+              <h2 style="font-family:'Fraunces',serif;font-size:1.5rem;margin-bottom:1.2rem">Envoyez-nous un message</h2>
+              <div class="form-grid">
+                <div class="field field--full">
+                  <label for="nom">Nom complet <span class="req">*</span></label>
+                  <input type="text" id="nom" name="nom" autocomplete="name" placeholder="Votre nom" required>
+                </div>
+                <div class="field field--full">
+                  <label for="telephone">Téléphone <span class="req">*</span></label>
+                  <input type="tel" id="telephone" name="telephone" autocomplete="tel" placeholder="Ex : 0550 12 34 56" required>
+                </div>
+                <div class="field field--full">
+                  <label for="message">Votre message</label>
+                  <textarea id="message" name="message" placeholder="Comment pouvons-nous vous aider ?"></textarea>
+                </div>
+              </div>
+              <div class="form-note" style="margin:1.2rem 0">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="8" r="1" fill="currentColor" stroke="none"/></svg>
+                <span>Votre message sera envoyé via WhatsApp. C'est le moyen le plus rapide d'obtenir une réponse.</span>
+              </div>
+              <button type="submit" class="btn btn-gold btn-block btn-lg">Envoyer mon message</button>
+            </form>
+          </div>
+
+        </div>
+
+        <!-- Carte -->
+        <div class="map-embed" id="contact-map" style="margin-top:2.5rem" data-aos="fade-up"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer" class="map-motif"></footer>
+
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/offres-data.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+  <script src="https://unpkg.com/swiper@11/swiper-bundle.min.js" defer></script>
+  <script src="assets/js/motion.js" defer></script>
+</body>
+</html>
