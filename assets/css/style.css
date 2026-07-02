@@ -50,6 +50,7 @@
 * { margin: 0; }
 
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+[id] { scroll-margin-top: calc(var(--header-h) + 1rem); }
 
 body {
   font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -419,7 +420,7 @@ body::before {
 
 /* ----------------------- 13. BOUTON WHATSAPP FLOTTANT ------------------- */
 .wa-float {
-  position: fixed; right: 18px; bottom: 18px; z-index: 200;
+  position: fixed; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 200;
   display: inline-flex; align-items: center; gap: .6rem;
   background: var(--wa-green); color: #fff;
   padding: .8rem; border-radius: 999px;
@@ -431,7 +432,7 @@ body::before {
 .wa-float svg { width: 30px; height: 30px; flex: none; }
 .wa-float__label { display: none; padding-right: .4rem; white-space: nowrap; }
 /* Remonté sur les pages d'offre pour ne pas chevaucher la barre de réservation fixe (mobile) */
-.wa-float--raised { bottom: 86px; }
+.wa-float--raised { bottom: calc(86px + env(safe-area-inset-bottom, 0px)); }
 
 /* ----------------------------- 14. FORMULAIRES -------------------------- */
 .form-card {
@@ -553,6 +554,16 @@ body::before {
 .program summary .day { color: var(--gold-700); font-family: "Fraunces", serif; font-size: 1rem; min-width: 4.5rem; }
 .program__detail { padding: 0 1.1rem 1.1rem 1.1rem; color: var(--slate); }
 
+/* Hébergement */
+.hotel-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.hotel-item { display: flex; gap: 1rem; align-items: center; background: var(--cream-100); border-radius: var(--radius); padding: 1rem 1.3rem; }
+.hotel-item__media { width: 72px; height: 72px; border-radius: var(--radius-sm); flex: none; overflow: hidden; }
+.hotel-item__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hotel-item__media--pending { display: flex; align-items: center; justify-content: center; color: var(--gold-700); }
+.hotel-item__media--pending svg { width: 1.7em; height: 1.7em; opacity: .55; }
+.hotel-item b { display: block; color: var(--ink); font-size: .98rem; }
+.hotel-item span { font-size: .9rem; color: var(--slate); }
+
 /* Infos pratiques */
 .practical { background: var(--cream-100); border-radius: var(--radius); padding: 1.6rem; }
 .practical li { display: flex; gap: .8rem; align-items: flex-start; margin-bottom: 1.1rem; }
@@ -571,6 +582,10 @@ body::before {
 .booking-card__price small { font-size: .8rem; color: var(--slate); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
 .booking-card__price b { font-family: "Fraunces", serif; font-size: 2.1rem; color: var(--ink); font-weight: 600; line-height: 1; }
 .booking-card__price em { font-style: normal; font-size: .95rem; color: var(--slate); width: 100%; }
+.pricing-list { list-style: none; margin: .9rem 0 0; padding-top: .9rem; border-top: 1px solid var(--line); }
+.pricing-list li { display: flex; justify-content: space-between; align-items: baseline; gap: .6rem; margin-bottom: .55rem; font-size: .93rem; color: var(--slate); }
+.pricing-list li:last-child { margin-bottom: 0; }
+.pricing-list b { font-family: "Fraunces", serif; font-weight: 600; color: var(--ink); }
 .booking-card__facts { margin: 1.3rem 0; border-top: 1px solid var(--line); padding-top: 1.2rem; }
 .booking-card__facts li { display: flex; align-items: center; gap: .7rem; margin-bottom: .8rem; font-size: .96rem; color: var(--ink); }
 .booking-card__facts svg { width: 1.2em; height: 1.2em; color: var(--gold-700); flex: none; }
@@ -588,6 +603,7 @@ body::before {
   background: #fff; border-top: 1px solid var(--line);
   box-shadow: 0 -6px 20px rgba(33,39,42,.1);
   padding: .7rem clamp(1rem, 4vw, 1.5rem);
+  padding-bottom: calc(.7rem + env(safe-area-inset-bottom, 0px));
 }
 .sticky-bar__price { line-height: 1.1; }
 .sticky-bar__price small { display: block; font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--slate); font-weight: 700; }
@@ -686,6 +702,52 @@ body::before {
   }
   .nav__brand img { height: 30px; width: 30px; }
 }
+
+/* --------------------- 20. SQUELETTES DE CHARGEMENT --------------------- */
+/* Effet de balayage lumineux, réutilisé partout où une zone est encore en
+   cours de chargement (page en cours de rendu) ou en attente d'une photo
+   définitive (ex: photo d'hôtel pas encore fournie). */
+.skel { position: relative; overflow: hidden; background: var(--line); }
+.skel::after {
+  content: ""; position: absolute; inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+  animation: skel-sweep 1.5s ease-in-out infinite;
+}
+@keyframes skel-sweep { 100% { transform: translateX(100%); } }
+
+/* Photo d'offre pas encore fournie : balayage lumineux sur le fond,
+   en clair sur les cartes et en sombre sur l'en-tête d'une offre. */
+.img-pending {
+  background: linear-gradient(100deg, var(--cream-100) 30%, #fff 50%, var(--cream-100) 70%);
+  background-size: 400% 100%;
+  animation: skel-bg-sweep 1.6s ease-in-out infinite;
+}
+.offer-hero.img-pending {
+  background: linear-gradient(100deg, #3c4448 30%, #4d565b 50%, #3c4448 70%);
+  background-size: 400% 100%;
+}
+@keyframes skel-bg-sweep {
+  0% { background-position: 100% 0; }
+  100% { background-position: 0 0; }
+}
+
+/* Cartes d'offres : squelette affiché le temps que le catalogue se charge */
+.skeleton-card { pointer-events: none; }
+.skeleton-line { width: 100%; height: .85rem; border-radius: 5px; margin-bottom: .8rem; }
+.skeleton-line:last-child { margin-bottom: 0; }
+.skeleton-line--title { height: 1.15rem; width: 65%; }
+.skeleton-line--sm { width: 40%; height: .8rem; }
+
+/* Détail d'une offre : squelette affiché avant le rendu JavaScript */
+.skeleton-hero { min-height: clamp(320px, 50vw, 460px); }
+.skeleton-title { height: 2rem; width: 55%; border-radius: 6px; margin-bottom: 1.6rem; }
+.skeleton-text { height: .95rem; border-radius: 5px; margin-bottom: .7rem; }
+.skeleton-text.w-100 { width: 100%; }
+.skeleton-text.w-90  { width: 90%; }
+.skeleton-text.w-70  { width: 70%; }
+.skeleton-text.w-50  { width: 50%; }
+.skeleton-price-card { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.6rem; }
 
 /* --- Préférence "moins d'animations" --- */
 @media (prefers-reduced-motion: reduce) {

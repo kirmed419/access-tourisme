@@ -12,207 +12,175 @@
    --------------------------------------------------------------------------
    MODÈLE D'UNE OFFRE (signification de chaque champ) :
 
-     id:         identifiant unique en minuscules, sans espace (ex: 'istanbul')
-     destination:nom court affiché sur la carte (ex: 'Istanbul')
+     id:         identifiant unique en minuscules, sans espace (ex: 'djerba')
+     destination:nom court affiché sur la carte (ex: 'Djerba')
      pays:       pays / région
      categorie:  UNE seule parmi : 'Algérie' | 'Omra / Hajj' | 'Europe' |
                  'Asie' | 'International'   (sert pour les filtres)
      image:      chemin de la photo
      duree:      texte libre (ex: '7 jours / 6 nuits')
+     depart:     texte libre décrivant les dates de départ
+                 (ex: 'Départs du 25 juillet au 3 septembre 2026')
      prix:       PRIX À PARTIR DE, en chiffres uniquement (DZD), ex: 140000
+                 (c'est ce prix qui sert aux filtres et à l'affichage carte)
+     pricing:    détail des tarifs, liste de { label, prix } (DZD)
+                 ex: [{ label: 'Chambre triple', prix: 359000 },
+                      { label: 'Chambre double', prix: 369000 }]
+                 (mettre une seule ligne si un seul tarif)
+     hotels:     liste des hébergements, { nom, ville, etoiles, formule, image }
+                 ex: [{ nom: 'Dar Djerba', ville: 'Djerba',
+                        etoiles: 4, formule: 'Pension complète' }]
+                 "image" est optionnel : tant qu'il n'est pas renseigné, un
+                 emplacement réservé (skeleton) s'affiche à la place de la photo.
      voyageurs:  type de séjour (ex: 'Groupe accompagné', 'Séjour individuel')
      resume:     phrase courte (carte de présentation)
      description:paragraphe d'introduction (page de l'offre)
      inclus:     liste de ce qui est compris
      nonInclus:  liste de ce qui n'est pas compris
      programme:  programme jour par jour (optionnel, peut rester vide [])
-     infos:      { periode, visa, aPrevoir } — infos pratiques
+     infos:      { visa, aPrevoir } — infos pratiques
      populaire:  true pour l'afficher sur la page d'accueil, sinon false
    ========================================================================== */
 
 const OFFRES = [
 
-  /* -------------------------- INTERNATIONAL --------------------------- */
+  /* ----------------------------- TUNISIE ------------------------------ */
   {
-    id: 'antalya-istanbul',
-    destination: 'Antalya & Istanbul',
-    pays: 'Turquie',
-    categorie: 'International',
-    image: 'assets/img/destinations/antalya.jpg',
-    duree: '10 jours / 9 nuits',
-    prix: 359000,
-    voyageurs: 'Séjour en formule tout compris',
-    resume: 'La Méditerranée turque et la magie du Bosphore réunies dans un seul voyage, en formule tout compris.',
-    description: "Six nuits de farniente au Selectum Belek Resort 5★ en formule Ultra All Inclusive, pieds dans l'eau, puis trois nuits à la découverte d'Istanbul depuis l'Hôtel Martinez 4★. Le meilleur des deux Turquie : la détente balnéaire d'Antalya et l'effervescence culturelle du Bosphore. Tarif à partir de 359 000 DA par personne en chambre triple (369 000 DA en chambre double).",
-    inclus: [
-      'Vol international Turkish Airlines Alger ⇄ Antalya',
-      'Vol intérieur Turkish Airlines Antalya ⇄ Istanbul',
-      '6 nuits au Selectum Belek Resort 5★ en Ultra All Inclusive',
-      '3 nuits à l’Hôtel Martinez 4★ à Istanbul, petit-déjeuner inclus',
-      'Tous les transferts aéroport / hôtel / aéroport',
-      'Excursions à Antalya : vieille ville, chutes de Lara, MarkAntalya',
-      'Excursions à Istanbul : Ortaköy, Taksim, Marché Égyptien',
-      'Assistance de l’agence durant tout le séjour'
-    ],
-    nonInclus: [
-      'Excursions en option (safari, rafting, croisière en bateau pirate)',
-      'Visa (selon nationalité)',
-      'Dépenses personnelles'
-    ],
-    programme: [
-      { jour: 'Jours 1–6', titre: 'Farniente à Antalya', detail: 'Installation au Selectum Belek Resort 5★ (Ultra All Inclusive) : plage privée, 4 piscines dont 2 avec toboggans, à 5 minutes du parc Land of Legends. Excursions : vieille ville d’Antalya, chutes de Lara, MarkAntalya.' },
-      { jour: 'Jours 7–9', titre: 'Découverte d’Istanbul', detail: 'Vol intérieur vers Istanbul et installation à l’Hôtel Martinez 4★. Visite d’Ortaköy, de la place Taksim et du Marché Égyptien, avec le Bazar aux épices.' },
-      { jour: 'Jour 10', titre: 'Retour', detail: 'Transfert vers l’aéroport et vol retour vers Alger.' }
-    ],
-    infos: {
-      periode: 'Départs du 25 juillet au 3 septembre 2026',
-      visa: 'Formalités variables selon nationalité — l’agence vous accompagne dans les démarches',
-      aPrevoir: 'Maillot de bain, tenue légère, crème solaire'
-    },
-    populaire: true
-  },
-  {
-    id: 'istanbul',
-    destination: 'Istanbul',
-    pays: 'Turquie',
-    categorie: 'International',
-    image: 'assets/img/destinations/istanbul.jpg',
-    duree: '8 jours / 7 nuits',
-    prix: 155000,
-    voyageurs: 'Groupe accompagné',
-    resume: 'Plus de 22 excursions incluses pour découvrir Istanbul sous toutes ses coutures, avec une excursion rafting offerte.',
-    description: "Séjour à l'Hôtel Martinez 4★, en plein cœur d'Istanbul, avec petit-déjeuner buffet quotidien. Ce programme se distingue par la richesse de ses visites : plus de 22 excursions sont incluses dans le prix, des grands classiques (Mosquée Bleue, Sainte-Sophie, croisière sur le Bosphore) aux quartiers plus secrets comme Balat, jusqu'à une excursion rafting offerte par l'agence à Maşukiye & Sapanca.",
-    inclus: [
-      'Billet d’avion avec Turkish Airlines',
-      '7 nuits à l’Hôtel Martinez 4★ avec petit-déjeuner buffet',
-      'Plus de 22 excursions touristiques incluses',
-      'Tous les transferts',
-      'Guide accompagnateur',
-      'Traitement du dossier de visa et rendez-vous visa offerts'
-    ],
-    nonInclus: [
-      'Frais de visa (exemption possible pour les moins de 15 ans et plus de 50 ans)',
-      'Entrées de certains sites (Sainte-Sophie, Aquarium Florya)',
-      'Dépenses personnelles'
-    ],
-    programme: [
-      { jour: 'Jour 1', titre: 'Arrivée à Istanbul', detail: 'Accueil et installation à l’Hôtel Martinez, au cœur de la ville.' },
-      { jour: 'Jours 2–3', titre: 'Sites emblématiques', detail: 'Mosquée Bleue, Sainte-Sophie, quartier de Balat, Tour de Galata et Tour de la Jeune Fille.' },
-      { jour: 'Jour 4', titre: 'Îles des Princes', detail: 'Journée complète en bateau privé avec déjeuner inclus.' },
-      { jour: 'Jours 5–6', titre: 'Bosphore & shopping', detail: 'Croisière sur le Bosphore, Ortaköy, place Taksim, Marché Égyptien et centres commerciaux.' },
-      { jour: 'Jour 7', titre: 'Excursion rafting offerte', detail: 'Journée à Maşukiye & Sapanca avec rafting et déjeuner buffet à volonté.' },
-      { jour: 'Jour 8', titre: 'Retour', detail: 'Transfert vers l’aéroport et vol retour vers Alger.' }
-    ],
-    infos: {
-      periode: 'Départs chaque semaine de juillet à octobre 2026',
-      visa: 'Dossier et rendez-vous visa pris en charge par l’agence (frais de visa non inclus)',
-      aPrevoir: 'Foulard pour les mosquées, chaussures confortables'
-    },
-    populaire: true
-  },
-  {
-    id: 'sharm-el-sheikh',
-    destination: 'Sharm El Sheikh',
-    pays: 'Égypte — Mer Rouge',
-    categorie: 'International',
-    image: 'assets/img/destinations/sharm-el-sheikh.jpg',
-    duree: '7, 8 ou 9 nuits au choix',
-    prix: 195000,
-    voyageurs: 'Séjour en famille',
-    resume: 'Vol direct sans démarche de visa vers les eaux turquoise de la mer Rouge, en formule tout compris.',
-    description: "Une formule pensée pour des vacances balnéaires sans complications : vol direct avec Air Algérie, aucune démarche de visa et un large choix d'hôtels 4 et 5 étoiles en formule All Inclusive Soft. Idéal en famille pour profiter du soleil, des fonds marins parmi les plus beaux au monde et d'un bord de mer aménagé, sans se soucier de l'organisation.",
-    inclus: [
-      'Vol direct avec Air Algérie',
-      'Aucune démarche de visa',
-      'Hébergement en formule All Inclusive Soft',
-      'Large choix d’hôtels 4★ et 5★ (Amwaj Oyoun, TUI Magic Life Red Sea, Jaz Mirabel Beach, Pickalbatros Laguna Vista, Pickalbatros Royal Moderna, Steigenberger Alcazar)',
-      'Transferts aéroport / hôtel / aéroport',
-      'Excursions : Old Market et Soho Square'
-    ],
-    nonInclus: [
-      'Excursions facultatives',
-      'Boissons premium (selon hôtel)',
-      'Dépenses personnelles'
-    ],
-    programme: [],
-    infos: {
-      periode: 'Départs de fin juillet à début septembre 2026',
-      visa: 'Aucun visa nécessaire',
-      aPrevoir: 'Maillot de bain, masque et tuba, protection solaire'
-    },
-    populaire: true
-  },
-  {
-    id: 'sharm-caire',
-    destination: 'Sharm El Sheikh & Le Caire',
-    pays: 'Égypte',
-    categorie: 'International',
-    image: 'assets/img/destinations/egypte.jpg',
-    duree: '10 jours / 9 nuits',
-    prix: 259900,
-    voyageurs: 'Groupe accompagné',
-    resume: 'Les plages de la mer Rouge et les trésors du Caire réunis dans un seul voyage inoubliable.',
-    description: "Ce circuit combine le meilleur des deux Égypte : 7 nuits de détente à Sharm El Sheikh dans l'hôtel 4 ou 5 étoiles de votre choix, puis 2 nuits au Caire à l'Hyatt Regency 5★ pour un programme culturel intense — pyramides de Gizeh, Khan El Khalili, dîner-croisière sur le Nil et musée national de la civilisation égyptienne. Vols avec EgyptAir inclus.",
-    inclus: [
-      'Vols avec EgyptAir',
-      '7 nuits à Sharm El Sheikh (hôtel 4★ ou 5★ au choix parmi Hollywood Aquapark, DoubleTree by Hilton, Magic Life Redsina, Pickalbatros)',
-      '2 nuits au Caire à l’Hyatt Regency Cairo 5★ avec petit-déjeuner',
-      'Visite des pyramides de Gizeh',
-      'Découverte de Khan El Khalili avec déjeuner égyptien',
-      'Soirée croisière sur le Nil avec dîner',
-      'Visite du Musée National de la Civilisation Égyptienne (NMEC)',
-      'Excursions à Sharm : Old Market et vieille ville'
-    ],
-    nonInclus: [
-      'Visa Égypte',
-      'Boissons et dépenses personnelles',
-      'Excursions facultatives non listées'
-    ],
-    programme: [
-      { jour: 'Jours 1–7', titre: 'Sharm El Sheikh', detail: 'Détente en bord de mer Rouge dans l’hôtel 4★ ou 5★ choisi. Excursions au Old Market et dans la vieille ville de Sharm.' },
-      { jour: 'Jours 8–9', titre: 'Le Caire', detail: 'Transfert au Caire, installation à l’Hyatt Regency 5★. Visite des pyramides de Gizeh, de Khan El Khalili et croisière-dîner sur le Nil.' },
-      { jour: 'Jour 10', titre: 'Retour', detail: 'Visite du musée NMEC puis transfert vers l’aéroport et vol retour.' }
-    ],
-    infos: {
-      periode: 'Départs de juillet à septembre 2026',
-      visa: 'Visa requis — démarches assurées par l’agence',
-      aPrevoir: 'Tenue légère, chaussures de marche pour les visites du Caire'
-    },
-    populaire: false
-  },
-  {
-    id: 'tunisie',
+    id: 'sousse-bus',
     destination: 'Tunisie — Sousse',
     pays: 'Tunisie',
     categorie: 'International',
     image: 'assets/img/destinations/tunisie.jpg',
     duree: '7 jours / 6 nuits',
-    prix: 46000,
+    depart: '7 départs du 18 juillet au 1er septembre 2026 — au départ d’Alger et de Sétif (arrêts à Bouira, Bordj Bou Arréridj, Constantine, Skikda, Annaba, El Tarf)',
+    prix: 70000,
+    pricing: [
+      { label: 'Adulte (selon hôtel et date), à partir de', prix: 70000 },
+      { label: 'Enfant (âge selon hôtel), à partir de', prix: 45000 },
+      { label: 'Chambre individuelle, à partir de', prix: 95000 }
+    ],
+    hotels: [
+      { nom: 'Tree House', ville: 'Sousse', etoiles: 3, formule: 'Demi-pension' },
+      { nom: 'Sol Palmeras', ville: 'Sousse', etoiles: 3, formule: 'Tout compris' },
+      { nom: 'El Mouradi Club Selima', ville: 'Sousse', etoiles: 3, formule: 'Tout compris' },
+      { nom: 'Marabout', ville: 'Sousse', etoiles: 3, formule: 'Tout compris' },
+      { nom: 'Hannibal Palace', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium' },
+      { nom: 'Orient Palace', ville: 'Sousse', etoiles: 4, formule: 'Tout compris' },
+      { nom: 'El Mouradi Club Kantaoui', ville: 'Port El Kantaoui', etoiles: 4, formule: 'Tout compris' },
+      { nom: 'Kanta Resort', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium' },
+      { nom: 'Golf Residence', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium' },
+      { nom: 'El Mouradi Palm Marina', ville: 'Port El Kantaoui', etoiles: 5, formule: 'Tout compris' }
+    ],
     voyageurs: 'Voyage organisé en bus',
-    resume: 'Direction Sousse en bus climatisé au départ d’Alger ou de Sétif, avec un large choix d’hôtels selon votre budget.',
-    description: "Un voyage tout confort en bus climatisé moderne, accompagné par un représentant de l'agence du départ jusqu'au retour. Plus de dix hôtels au choix à Sousse, de 3 à 5 étoiles, en demi-pension ou en formule tout compris, pour un séjour balnéaire adapté à toutes les envies et tous les budgets. Tarifs variables selon l'hôtel et la formule choisie — à partir de 46 000 DA par personne.",
+    resume: 'Sept départs d’été vers Sousse en bus climatisé, avec dix hôtels de 3 à 5 étoiles selon votre budget.',
+    description: "Un voyage tout confort en bus moderne et climatisé, accompagné par un représentant de l’agence à l’aller comme au retour. Dix hôtels au choix à Sousse et Port El Kantaoui, du 3 étoiles économique au 5 étoiles tout compris, en demi-pension ou en formule tout compris selon l’établissement. Des sorties gratuites sont organisées pour les familles, les enfants et les groupes d’amis, et de nombreuses excursions optionnelles complètent le séjour. Tarifs adulte de 70 000 à 143 000 DA selon l’hôtel et la date.",
     inclus: [
-      'Transport aller-retour en bus climatisé moderne',
+      'Transport aller-retour en bus moderne et climatisé',
       'Accompagnateur de l’agence pendant tout le trajet',
       '6 nuits d’hébergement selon l’hôtel choisi',
       'Demi-pension ou formule tout compris selon l’hôtel',
       'Excursions gratuites : Mall de Sousse, Bled El Arbi, Marina Yasmine Hammamet'
     ],
     nonInclus: [
-      'Excursions en option (croisière en bateau pirate, Carthage Land, jet-ski, Sidi Bou Saïd)',
+      'Excursions en option : croisière en bateau pirate, Carthage Land, jet-ski et parachute ascensionnel, Bizerte (Coco Beach), Sidi Bou Saïd et Tunis',
       'Boissons hors formule',
       'Dépenses personnelles'
     ],
     programme: [],
     infos: {
-      periode: '9 départs entre le 2 juillet et le 1er septembre 2026, au départ d’Alger et de Sétif (arrêts à Béjaïa, Bordj Bou Arréridj, Constantine, Skikda, Annaba, El Tarf)',
       visa: 'Aucun visa — carte d’identité ou passeport en cours de validité',
-      aPrevoir: 'Maillot de bain, tenue légère — un acompte suffit pour réserver, le solde se règle le jour du départ'
+      aPrevoir: 'Un acompte de 10 000 DA suffit pour confirmer la réservation, le solde se règle le jour du départ. Enfant en bas âge sans siège : gratuit ; avec siège : 10 000 DA.'
     },
-    populaire: false
+    populaire: true
+  },
+  {
+    id: 'djerba',
+    destination: 'Tunisie — Djerba',
+    pays: 'Tunisie',
+    categorie: 'International',
+    image: 'assets/img/destinations/djerba.jpg',
+    duree: '7 jours / 6 nuits',
+    depart: '16 départs du 29 juin au 27 septembre 2026 — d’Alger, Bouira, Bordj Bou Arréridj, Sétif et Constantine',
+    prix: 64500,
+    pricing: [
+      { label: 'Chambre triple (par personne), à partir de', prix: 64500 },
+      { label: 'Chambre double (par personne), à partir de', prix: 68900 },
+      { label: 'Enfant de 2 à 12 ans, à partir de', prix: 42500 }
+    ],
+    hotels: [
+      { nom: 'Dar Djerba', ville: 'Djerba', etoiles: 4, formule: 'Pension complète' }
+    ],
+    voyageurs: 'Voyage organisé en bus',
+    resume: 'L’île de Djerba en pension complète à l’hôtel Dar Djerba 4★, avec transport en autocar touristique.',
+    description: "Découvrez l’île de Djerba le temps d’une semaine à l’hôtel Dar Djerba 4★ : pension complète, plage privée, piscines extérieures et couverte, animations quotidiennes pour petits et grands. Le transport se fait en autocar touristique confortable au départ de cinq villes. Les tarifs varient selon la période : en chambre triple, de 64 500 DA (septembre) à 90 900 DA (plein été) par personne. Réduction de 4 000 DA par personne si vous voyagez avec votre propre véhicule.",
+    inclus: [
+      'Transport aller-retour en autocar touristique',
+      '6 nuits à l’hôtel Dar Djerba 4★',
+      'Pension complète (petit-déjeuner, déjeuner, dîner)',
+      'Accès à la plage privée',
+      'Piscines extérieures et piscine couverte, Wi-Fi',
+      'Animations quotidiennes, soirées et spectacles',
+      'Excursions offertes : Houmt Souk et Midoun'
+    ],
+    nonInclus: [
+      'Taxe de séjour : 3 dinars tunisiens par personne et par nuit, à régler à l’hôtel',
+      'Excursions en option : parc des crocodiles, synagogue de la Ghriba, musée de Guellala, bateau pirate vers l’île aux Flamants',
+      'Dépenses personnelles'
+    ],
+    programme: [],
+    infos: {
+      visa: 'Aucun visa — carte d’identité ou passeport en cours de validité',
+      aPrevoir: 'Enfant de moins de 6 ans : gratuit (sans siège). Réduction de 4 000 DA par personne avec votre véhicule personnel.'
+    },
+    populaire: true
   },
 
   /* ------------------------------- ASIE ------------------------------- */
+  {
+    id: 'azerbaidjan',
+    destination: 'Bakou & Gabala',
+    pays: 'Azerbaïdjan',
+    categorie: 'Asie',
+    image: 'assets/img/destinations/azerbaidjan.jpg',
+    duree: '8 jours / 7 nuits',
+    depart: '6 départs du 1er juillet au 22 septembre 2026',
+    prix: 217000,
+    pricing: [
+      { label: 'Prix par personne, à partir de', prix: 217000 }
+    ],
+    hotels: [
+      { nom: 'Parkside Hotel', ville: 'Bakou', etoiles: 4, formule: 'Petit-déjeuner inclus' },
+      { nom: 'Karvansaray Spa Hotel', ville: 'Gabala', etoiles: 4, formule: 'Petit-déjeuner inclus' }
+    ],
+    voyageurs: 'Circuit organisé',
+    resume: 'Circuit entre Bakou la futuriste et les montagnes de Gabala, visa électronique et guide francophone inclus.',
+    description: "Découvrez la magie de l’Azerbaïdjan, entre modernité, patrimoine historique et paysages naturels à couper le souffle. Cinq nuits à Bakou pour explorer la vieille ville, la Tour de la Vierge et la corniche de la mer Caspienne, puis deux nuits à Gabala au cœur des montagnes du Caucase : Shamakhi et la plus ancienne mosquée du pays (fondée en 743), Sheki et son palais historique, et les cascades de Khal-Khal. Vols Turkish Airlines et visa électronique inclus.",
+    inclus: [
+      'Vols avec Turkish Airlines',
+      'Visa électronique',
+      '5 nuits à Bakou au Parkside Hotel 4★ avec petit-déjeuner',
+      '2 nuits à Gabala au Karvansaray Spa Hotel 4★ avec petit-déjeuner',
+      'Tous les transferts',
+      'Guide accompagnateur francophone et arabophone',
+      'Visites à Bakou : vieille ville, Tour de la Vierge, Centre culturel Heydar Aliyev, corniche de la Caspienne, bazars traditionnels, Deniz Mall et Genclik Mall',
+      'Excursions à Gabala : Shamakhi et sa mosquée de 743, Sheki et son palais, cascades de Khal-Khal'
+    ],
+    nonInclus: [
+      'Déjeuners et dîners',
+      'Excursions en option : Yanar Dag (la Montagne de Feu), temple du feu Ateshgah, musée de l’Automobile, Dalga Aqua Park, téléphérique de Tufandag, tyrolienne, VTT, journée Quba & Shahdag',
+      'Dépenses personnelles'
+    ],
+    programme: [
+      { jour: 'Jours 1–5', titre: 'Bakou, la capitale', detail: 'Vieille ville, Tour de la Vierge, Centre culturel Heydar Aliyev, promenade sur la corniche de la mer Caspienne, bazars traditionnels, shopping au Deniz Mall et au Genclik Mall, journée détente à la plage.' },
+      { jour: 'Jours 6–7', titre: 'Gabala, nature et détente', detail: 'Région de Shamakhi et la plus ancienne mosquée du pays (fondée en 743), Sheki et son palais historique, cascades de Khal-Khal, balade dans la vieille ville de Sheki.' },
+      { jour: 'Jour 8', titre: 'Retour', detail: 'Transfert vers l’aéroport de Bakou et vol retour vers Alger.' }
+    ],
+    infos: {
+      visa: 'Visa électronique inclus dans le tarif',
+      aPrevoir: 'Chaussures confortables, veste légère pour les soirées en montagne'
+    },
+    populaire: true
+  },
   {
     id: 'malaisie-kl-langkawi',
     destination: 'Kuala Lumpur & Langkawi',
@@ -220,17 +188,32 @@ const OFFRES = [
     categorie: 'Asie',
     image: 'assets/img/destinations/malaisie.jpg',
     duree: '11 jours / 9 nuits',
+    depart: '8 départs du 2 au 31 août 2026 (11 à 13 jours selon la date)',
     prix: 366000,
+    pricing: [
+      { label: 'Chambre triple (par personne)', prix: 366000 },
+      { label: 'Chambre double (par personne)', prix: 369000 },
+      { label: 'Chambre individuelle', prix: 485000 },
+      { label: 'Enfant avec lit', prix: 355000 },
+      { label: 'Enfant sans lit', prix: 249000 },
+      { label: 'Bébé', prix: 52000 }
+    ],
+    hotels: [
+      { nom: 'Wyndham Suites KLCC', ville: 'Kuala Lumpur', etoiles: 5, formule: 'Petit-déjeuner inclus' },
+      { nom: 'The Riyaz Lavanya', ville: 'Langkawi', etoiles: 5, formule: 'Petit-déjeuner inclus (selon le départ)' },
+      { nom: 'Pelangi Beach Resort', ville: 'Langkawi', etoiles: 5, formule: 'Petit-déjeuner inclus (selon le départ)' }
+    ],
     voyageurs: 'Séjour VIP en hôtels 5★',
-    resume: 'La ville futuriste de Kuala Lumpur et les plages paradisiaques de Langkawi, en hôtels 5 étoiles.',
-    description: "Un séjour VIP entre deux visages de la Malaisie : cinq à six nuits à Kuala Lumpur au Wyndham Suites KLCC 5★, au pied des Tours Petronas, puis quatre nuits de détente à Langkawi dans un hôtel 5★ en bord de mer. Vol direct avec Air Algérie ou Qatar Airways, petit-déjeuner inclus et guides francophones pour toutes les excursions.",
+    resume: 'La ville futuriste de Kuala Lumpur et les plages paradisiaques de Langkawi, en hôtels 5 étoiles de luxe.',
+    description: "Un séjour VIP entre deux visages de la Malaisie : cinq à six nuits à Kuala Lumpur au Wyndham Suites KLCC 5★, au pied des Tours Petronas, puis quatre nuits de détente à Langkawi au Riyaz Lavanya 5★ ou au Pelangi Beach Resort 5★ selon la date. Vol avec Air Algérie (direct) ou Qatar Airways, petit-déjeuner inclus, guide et assistance pendant tout le séjour, avec un riche programme d’excursions incluses.",
     inclus: [
-      'Billet d’avion international (Air Algérie ou Qatar Airways)',
+      'Vol international (Air Algérie ou Qatar Airways selon le départ)',
       'Vol intérieur Kuala Lumpur ⇄ Langkawi',
       'Hébergement en hôtels 5★ avec petit-déjeuner',
       'Tous les transferts',
-      'Guides francophones et assistance',
-      'City tour de Kuala Lumpur et excursion Island Hopping à Langkawi'
+      'Guide et assistance',
+      'Excursions à Kuala Lumpur : Bukit Bintang by night, Palais Royal, Masjid Negara, place de l’Indépendance, chocolaterie, temple chinois, Tours Jumelles Petronas, Batu Caves, Putrajaya, Genting Highlands et Chin Swee Temple',
+      'Excursion Island Hopping à Langkawi'
     ],
     nonInclus: [
       'Déjeuners et dîners',
@@ -238,16 +221,70 @@ const OFFRES = [
       'Dépenses personnelles'
     ],
     programme: [
-      { jour: 'Jours 1–5', titre: 'Kuala Lumpur', detail: 'Installation au Wyndham Suites KLCC 5★. City tour (Palais Royal, Mosquée Nationale, Tours Jumelles Petronas), Batu Caves, Putrajaya et Genting Highlands.' },
-      { jour: 'Jours 6–9', titre: 'Langkawi', detail: 'Transfert à Langkawi et installation en hôtel 5★ (The Riyaz Lavanya ou Pelangi Beach Resort). Excursion Island Hopping et détente sur les plus belles plages de Malaisie.' },
-      { jour: 'Jours 10–11', titre: 'Retour', detail: 'Transfert vers l’aéroport et vol retour vers Alger.' }
+      { jour: 'Jours 1–6', titre: 'Kuala Lumpur', detail: 'Installation au Wyndham Suites KLCC 5★. City tour (Palais Royal, Masjid Negara, place de l’Indépendance, Tours Petronas), Bukit Bintang by night, Batu Caves, Putrajaya, Genting Highlands et Chin Swee Temple.' },
+      { jour: 'Jours 7–10', titre: 'Langkawi', detail: 'Vol intérieur vers Langkawi et installation au Riyaz Lavanya 5★ ou au Pelangi Beach Resort 5★. Excursion Island Hopping et détente sur les plus belles plages de Malaisie.' },
+      { jour: 'Jour 11', titre: 'Retour', detail: 'Transfert vers l’aéroport et vol retour vers Alger.' }
     ],
     infos: {
-      periode: 'Départs en août 2026',
       visa: 'Formalités simplifiées — l’agence vous accompagne dans les démarches',
       aPrevoir: 'Vêtements légers, maillot de bain, adaptateur électrique'
     },
     populaire: true
+  },
+
+  /* ------------------------------ ÉGYPTE ------------------------------ */
+  {
+    id: 'sharm-caire',
+    destination: 'Sharm El Sheikh & Le Caire',
+    pays: 'Égypte',
+    categorie: 'International',
+    image: 'assets/img/destinations/egypte.jpg',
+    duree: '10 jours / 9 nuits',
+    depart: '11 départs du 27 juillet au 12 septembre 2026',
+    prix: 259900,
+    pricing: [
+      { label: 'Hollywood Aquapark 4★ (double, juillet)', prix: 259900 },
+      { label: 'DoubleTree by Hilton 5★ (double, juillet)', prix: 295000 },
+      { label: 'Magic Life Redsina 5★ (double, juillet)', prix: 335000 },
+      { label: 'Magic Life Redsina 5★ (family room, juillet)', prix: 360000 }
+    ],
+    hotels: [
+      { nom: 'Hollywood Aquapark', ville: 'Sharm El Sheikh', etoiles: 4, formule: 'Au choix' },
+      { nom: 'DoubleTree by Hilton', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix' },
+      { nom: 'Magic Life Redsina', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix' },
+      { nom: 'Pickalbatros Luxury', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix' },
+      { nom: 'Pickalbatros Laguna Vista', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix' },
+      { nom: 'Pickalbatros Royal Moderna', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix' },
+      { nom: 'Hyatt Regency Cairo', ville: 'Le Caire', etoiles: 5, formule: 'Petit-déjeuner inclus' }
+    ],
+    voyageurs: 'Groupe accompagné',
+    resume: 'Les plages de la mer Rouge et les trésors du Caire réunis dans un seul voyage inoubliable.',
+    description: "Ce combiné réunit le meilleur des deux Égypte : 7 nuits de détente à Sharm El Sheikh dans l’hôtel 4 ou 5 étoiles de votre choix, puis 2 nuits au Caire à l’Hyatt Regency 5★ pour un programme culturel intense — pyramides de Gizeh, Khan El Khalili avec déjeuner égyptien, soirée en bateau sur le Nil avec dîner et musée national de la civilisation égyptienne. Vols avec EgyptAir. Paiement par banque possible.",
+    inclus: [
+      'Vols avec EgyptAir',
+      '7 nuits à Sharm El Sheikh (hôtel 4★ ou 5★ au choix)',
+      '2 nuits au Caire à l’Hyatt Regency Cairo 5★ avec petit-déjeuner',
+      'Excursions à Sharm : Soho Square et vieille ville',
+      'Visite des pyramides de Gizeh',
+      'Découverte de Khan El Khalili avec déjeuner dans un restaurant égyptien',
+      'Soirée en bateau sur le Nil avec dîner',
+      'Visite du Musée National de la Civilisation Égyptienne (NMEC)'
+    ],
+    nonInclus: [
+      'Visa Égypte',
+      'Boissons et dépenses personnelles',
+      'Excursions facultatives non listées'
+    ],
+    programme: [
+      { jour: 'Jours 1–7', titre: 'Sharm El Sheikh', detail: 'Détente en bord de mer Rouge dans l’hôtel 4★ ou 5★ choisi. Excursions à Soho Square et dans la vieille ville de Sharm El Sheikh.' },
+      { jour: 'Jours 8–9', titre: 'Le Caire', detail: 'Transfert au Caire, installation à l’Hyatt Regency 5★. Visite des pyramides de Gizeh, de Khan El Khalili avec déjeuner égyptien et soirée en bateau sur le Nil avec dîner.' },
+      { jour: 'Jour 10', titre: 'Retour', detail: 'Visite du musée NMEC puis transfert vers l’aéroport et vol retour.' }
+    ],
+    infos: {
+      visa: 'Visa requis — démarches assurées par l’agence',
+      aPrevoir: 'Tenue légère, chaussures de marche pour les visites du Caire. Paiement par banque possible.'
+    },
+    populaire: false
   }
 
 ];

@@ -3,8 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#3C4448">
   <title>Access Tourisme — Agence de voyages | Le voyage que vous méritez</title>
   <meta name="description" content="Access Tourisme, votre agence de voyages en Algérie : Omra, séjours en Algérie, Turquie, Dubaï, Égypte, Europe et plus. Réservez facilement, nous confirmons tout sur WhatsApp.">
+
+  <!-- Partage sur les réseaux sociaux -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Access Tourisme — Agence de voyages">
+  <meta property="og:description" content="Des séjours soigneusement préparés, en Algérie et à travers le monde. Réservez en quelques clics, nous confirmons tout sur WhatsApp.">
+  <meta property="og:image" content="assets/img/site/hero.jpg">
+  <meta property="og:locale" content="fr_FR">
 
   <!-- Favicon (icône AT du logo) -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/site/favicon-32.png">
@@ -32,10 +40,10 @@
     <section class="hero">
       <div class="hero-swiper swiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="assets/img/site/hero.jpg" alt="Préparatifs de voyage"></div>
-          <div class="swiper-slide"><img src="assets/img/destinations/antalya.jpg" alt="Antalya, Turquie"></div>
-          <div class="swiper-slide"><img src="assets/img/destinations/malaisie.jpg" alt="Kuala Lumpur, Malaisie"></div>
-          <div class="swiper-slide"><img src="assets/img/destinations/sharm-el-sheikh.jpg" alt="Sharm El Sheikh, Égypte"></div>
+          <div class="swiper-slide"><img src="assets/img/site/hero.jpg" alt="Préparatifs de voyage" fetchpriority="high"></div>
+          <div class="swiper-slide"><img src="assets/img/destinations/antalya.jpg" alt="Antalya, Turquie" loading="lazy"></div>
+          <div class="swiper-slide"><img src="assets/img/destinations/malaisie.jpg" alt="Kuala Lumpur, Malaisie" loading="lazy"></div>
+          <div class="swiper-slide"><img src="assets/img/destinations/sharm-el-sheikh.jpg" alt="Sharm El Sheikh, Égypte" loading="lazy"></div>
         </div>
       </div>
       <div class="container hero__inner">
@@ -83,7 +91,35 @@
           <h2 class="section-title">Nos destinations les plus demandées</h2>
           <p>Une sélection de séjours pensés pour vous faire voyager l'esprit tranquille.</p>
         </div>
-        <div class="offers-grid" id="featured-offers"></div>
+        <div class="offers-grid" id="featured-offers">
+          <div class="offer-card skeleton-card" aria-hidden="true">
+            <div class="offer-card__media skel"></div>
+            <div class="offer-card__body">
+              <div class="skeleton-line skeleton-line--title skel"></div>
+              <div class="skeleton-line skeleton-line--sm skel"></div>
+              <div class="skeleton-line skel"></div>
+              <div class="skeleton-line skeleton-line--sm skel"></div>
+            </div>
+          </div>
+          <div class="offer-card skeleton-card" aria-hidden="true">
+            <div class="offer-card__media skel"></div>
+            <div class="offer-card__body">
+              <div class="skeleton-line skeleton-line--title skel"></div>
+              <div class="skeleton-line skeleton-line--sm skel"></div>
+              <div class="skeleton-line skel"></div>
+              <div class="skeleton-line skeleton-line--sm skel"></div>
+            </div>
+          </div>
+          <div class="offer-card skeleton-card" aria-hidden="true">
+            <div class="offer-card__media skel"></div>
+            <div class="offer-card__body">
+              <div class="skeleton-line skeleton-line--title skel"></div>
+              <div class="skeleton-line skeleton-line--sm skel"></div>
+              <div class="skeleton-line skel"></div>
+              <div class="skeleton-line skeleton-line--sm skel"></div>
+            </div>
+          </div>
+        </div>
         <div class="center mt-2" data-aos="fade-up">
           <a href="offres.html" class="btn btn-dark btn-lg">Voir toutes les offres</a>
         </div>

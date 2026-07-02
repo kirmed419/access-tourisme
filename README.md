@@ -14,11 +14,11 @@ sans étape de « compilation ». Il fonctionne sur n'importe quel hébergement.
 
 ### 1. ⭐ Changer le numéro WhatsApp (le plus important)
 
-Le numéro est déjà configuré sur **213775209443**. Pour le changer, ouvrez
-**`assets/js/config.js`** et modifiez la ligne `whatsapp` :
+Ouvrez **`assets/js/config.js`** et modifiez la ligne `whatsapp` avec votre
+numéro :
 
 ```js
-whatsapp: '213775209443',   // ← remplacez par votre numéro si besoin
+whatsapp: '213XXXXXXXXX',   // ← remplacez par votre numéro
 ```
 
 > **Format :** indicatif du pays **sans le `+`**, **sans espaces**, et **sans le `0`** du début.
@@ -46,14 +46,22 @@ en dessous (gardez bien la **virgule** entre les blocs), puis modifiez les texte
   categorie: 'Europe',           // Algérie | Omra / Hajj | Europe | Asie | International
   image: 'assets/img/destinations/rome.jpg',
   duree: '5 jours / 4 nuits',
-  prix: 195000,                  // en chiffres uniquement (dinars)
+  depart: 'Départs chaque samedi de juin à septembre 2026',
+  prix: 195000,                  // en chiffres uniquement (dinars) — prix "à partir de"
+  pricing: [                     // détail des tarifs (une seule ligne si un seul prix)
+    { label: 'Chambre double (par personne)', prix: 195000 },
+    { label: 'Chambre simple (par personne)', prix: 230000 }
+  ],
+  hotels: [                      // hôtels inclus dans le séjour
+    { nom: 'Hôtel Colosseo', ville: 'Rome', etoiles: 4, formule: 'Petit-déjeuner inclus' }
+  ],
   voyageurs: 'Séjour individuel',
   resume: 'Une phrase courte pour la carte.',
   description: 'Un paragraphe de présentation.',
   inclus:    ['Vol aller-retour', 'Hôtel 4*', 'Petit-déjeuner'],
   nonInclus: ['Repas non mentionnés', 'Dépenses personnelles'],
   programme: [],                 // laissez [] si pas de programme détaillé
-  infos: { periode: '...', visa: '...', aPrevoir: '...' },
+  infos: { visa: '...', aPrevoir: '...' },
   populaire: true                // true = affiché sur la page d'accueil
 }
 ```
@@ -135,5 +143,5 @@ acess/
 
 ---
 
-> ℹ️ **Numéro WhatsApp actuel : `213775209443`.** Pour le changer, modifiez la
-> ligne `whatsapp` dans `config.js` (voir section 1 ci-dessus).
+> ℹ️ Pour changer le numéro WhatsApp, modifiez la ligne `whatsapp` dans
+> `config.js` (voir section 1 ci-dessus).

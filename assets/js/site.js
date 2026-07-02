@@ -36,6 +36,7 @@
     sun:      '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
     passport: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><circle cx="12" cy="9" r="2.5"/><path d="M9 14h6"/>',
     bag:      '<path d="M6 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M12 11v6"/>',
+    hotel:    '<path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><circle cx="9" cy="10" r=".9" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r=".9" fill="currentColor" stroke="none"/>',
     wa:       '<path fill="currentColor" stroke="none" d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.02zM12.05 20.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 5.83 2.42 8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/>',
     facebook: '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>',
     instagram:'<rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>',
@@ -51,7 +52,7 @@
   function waNumber() { return String(CFG.whatsapp || '').replace(/[\s+]/g, ''); }
   function waLink(msg) { return 'https://wa.me/' + waNumber() + '?text=' + encodeURIComponent(msg); }
   function param(name) { return new URLSearchParams(location.search).get(name); }
-  function getOffre(id) { return OFFRES.filter(function (o) { return o.id === id; })[0]; }
+  function getOffre(id) { return OFFRES.find(function (o) { return o.id === id; }); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
@@ -101,8 +102,12 @@
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
     });
+    function closeNav() { nav.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
     nav.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') { nav.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+      if (e.target.tagName === 'A') closeNav();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('open')) { closeNav(); toggle.focus(); }
     });
     window.addEventListener('scroll', function () {
       host.classList.toggle('scrolled', window.scrollY > 8);
@@ -172,6 +177,10 @@
     document.body.appendChild(a);
   }
 
+  /* Si la photo d'une offre n'existe pas encore, on affiche un emplacement
+     réservé (skeleton) à sa place au lieu d'une image cassée. */
+  var IMG_FALLBACK = ' onerror="this.parentNode.classList.add(\'img-pending\');this.remove()"';
+
   /* ========================= CARTE D'OFFRE ========================= */
   function offerCard(o, idx) {
     var delay = ((idx || 0) % 3) * 90;
@@ -179,7 +188,7 @@
       '<article class="offer-card" data-aos="fade-up" data-aos-delay="' + delay + '">' +
         '<a class="offer-card__media" href="offre.html?id=' + o.id + '" aria-label="' + esc(o.destination) + '">' +
           '<span class="offer-card__cat">' + esc(o.categorie) + '</span>' +
-          '<img src="' + o.image + '" alt="' + esc(o.destination + ', ' + o.pays) + '" loading="lazy">' +
+          '<img src="' + o.image + '" alt="' + esc(o.destination + ', ' + o.pays) + '" loading="lazy"' + IMG_FALLBACK + '>' +
         '</a>' +
         '<div class="offer-card__body">' +
           '<h3><a href="offre.html?id=' + o.id + '">' + esc(o.destination) + '</a></h3>' +
@@ -213,7 +222,9 @@
     var state = { cat: param('cat') || 'Toutes', budget: 'all' };
 
     var chips = ['Toutes'].concat(CATEGORIES).map(function (c) {
-      return '<button class="chip' + (c === state.cat ? ' active' : '') + '" data-cat="' + esc(c) + '">' + esc(c) + '</button>';
+      var active = c === state.cat;
+      return '<button class="chip' + (active ? ' active' : '') + '" data-cat="' + esc(c) + '"' +
+        ' aria-pressed="' + active + '">' + esc(c) + '</button>';
     }).join('');
     filtersHost.innerHTML = chips;
 
@@ -233,7 +244,9 @@
         : '<p class="no-results">Aucune offre ne correspond à votre recherche. Essayez d\'élargir vos critères ou <a class="text-gold" href="contact.html">contactez-nous</a>.</p>';
       countHost.textContent = list.length + (list.length > 1 ? ' voyages disponibles' : ' voyage disponible');
       Array.prototype.forEach.call(filtersHost.querySelectorAll('.chip'), function (ch) {
-        ch.classList.toggle('active', ch.dataset.cat === state.cat);
+        var active = ch.dataset.cat === state.cat;
+        ch.classList.toggle('active', active);
+        ch.setAttribute('aria-pressed', String(active));
       });
     }
     filtersHost.addEventListener('click', function (e) {
@@ -252,17 +265,55 @@
   function renderOffre() {
     var host = document.getElementById('offer-detail');
     if (!host) return;
+    host.removeAttribute('aria-busy');
     var o = getOffre(param('id'));
     if (!o) {
+      document.title = 'Offre introuvable — Access Tourisme';
       host.innerHTML = '<div class="container section center"><h1>Offre introuvable</h1>' +
         '<p>Cette offre n\'existe pas ou n\'est plus disponible.</p>' +
         '<a class="btn btn-gold" href="offres.html">Voir toutes nos offres</a></div>';
       return;
     }
     document.title = o.destination + ' — Access Tourisme';
+    var metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', o.resume);
 
     var incl = o.inclus.map(function (i) { return '<li>' + icon('check') + '<span>' + esc(i) + '</span></li>'; }).join('');
     var nonIncl = o.nonInclus.map(function (i) { return '<li>' + icon('x') + '<span>' + esc(i) + '</span></li>'; }).join('');
+
+    var hotels = '';
+    if (o.hotels && o.hotels.length) {
+      hotels =
+        '<section class="offer-section" data-aos="fade-up">' +
+          '<h2>Hébergement</h2>' +
+          '<ul class="hotel-list">' +
+            o.hotels.map(function (h) {
+              var stars = h.etoiles ? ' ' + Array(h.etoiles + 1).join('★') : '';
+              // Tant que la photo de l'hôtel n'est pas fournie (champ "image"),
+              // on affiche un emplacement réservé (skeleton) à sa place.
+              var media = h.image
+                ? '<div class="hotel-item__media"><img src="' + h.image + '" alt="' + esc(h.nom) + '" loading="lazy"></div>'
+                : '<div class="hotel-item__media hotel-item__media--pending skel" title="Photo à venir">' + icon('hotel') + '</div>';
+              return '<li class="hotel-item">' + media +
+                '<div><b>' + esc(h.nom) + stars + '</b>' +
+                '<span>' + esc(h.ville) + (h.formule ? ' · ' + esc(h.formule) : '') + '</span></div>' +
+              '</li>';
+            }).join('') +
+          '</ul>' +
+        '</section>';
+    }
+
+    var priceBlock;
+    if (o.pricing && o.pricing.length > 1) {
+      priceBlock =
+        '<div class="booking-card__price"><small>À partir de</small><b>' + fmtPrice(o.prix) + '</b></div>' +
+        '<ul class="pricing-list">' +
+          o.pricing.map(function (p) { return '<li><span>' + esc(p.label) + '</span><b>' + fmtPrice(p.prix) + '</b></li>'; }).join('') +
+        '</ul>';
+    } else {
+      priceBlock =
+        '<div class="booking-card__price"><small>À partir de</small><b>' + fmtPrice(o.prix) + '</b><em>par personne</em></div>';
+    }
 
     var program = '';
     if (o.programme && o.programme.length) {
@@ -284,7 +335,7 @@
     host.innerHTML =
       /* En-tête visuel */
       '<div class="offer-hero">' +
-        '<img src="' + o.image + '" alt="' + esc(o.destination + ', ' + o.pays) + '">' +
+        '<img src="' + o.image + '" alt="' + esc(o.destination + ', ' + o.pays) + '"' + IMG_FALLBACK + '>' +
         '<div class="container offer-hero__inner">' +
           '<span class="badge">' + esc(o.categorie) + '</span>' +
           '<h1>' + esc(o.destination) + '</h1>' +
@@ -309,12 +360,14 @@
               '</div>' +
             '</section>' +
 
+            hotels +
+
             program +
 
             '<section class="offer-section" data-aos="fade-up">' +
               '<h2>Informations pratiques</h2>' +
               '<ul class="practical">' +
-                '<li>' + icon('sun') + '<div><b>Meilleure période</b><span>' + esc(o.infos.periode) + '</span></div></li>' +
+                '<li>' + icon('sun') + '<div><b>Meilleure période</b><span>' + esc(o.depart) + '</span></div></li>' +
                 '<li>' + icon('passport') + '<div><b>Formalités / visa</b><span>' + esc(o.infos.visa) + '</span></div></li>' +
                 '<li>' + icon('bag') + '<div><b>À prévoir</b><span>' + esc(o.infos.aPrevoir) + '</span></div></li>' +
               '</ul>' +
@@ -324,10 +377,7 @@
           /* Carte de réservation (aside) */
           '<aside class="offer-aside">' +
             '<div class="booking-card">' +
-              '<div class="booking-card__price">' +
-                '<small>À partir de</small><b>' + fmtPrice(o.prix) + '</b>' +
-                '<em>par personne</em>' +
-              '</div>' +
+              priceBlock +
               '<ul class="booking-card__facts">' +
                 '<li>' + icon('clock') + esc(o.duree) + '</li>' +
                 '<li>' + icon('users') + esc(o.voyageurs) + '</li>' +
@@ -369,7 +419,7 @@
       if (!o) { summary.innerHTML = '<div class="form-note">' + icon('info') + '<span>Choisissez une destination ci-dessus, ou laissez-nous vous conseiller : décrivez votre envie dans le message.</span></div>'; return; }
       summary.innerHTML =
         '<div class="offer-card" style="box-shadow:none">' +
-          '<div class="offer-card__media" style="aspect-ratio:16/9"><img src="' + o.image + '" alt="' + esc(o.destination) + '"></div>' +
+          '<div class="offer-card__media" style="aspect-ratio:16/9"><img src="' + o.image + '" alt="' + esc(o.destination) + '"' + IMG_FALLBACK + '></div>' +
           '<div class="offer-card__body">' +
             '<h3>' + esc(o.destination) + '</h3>' +
             '<div class="offer-card__country">' + esc(o.pays) + '</div>' +
@@ -460,11 +510,32 @@
     setTimeout(function () { window.location.href = link; }, 1500);
   }
 
+  /* ============ DONNÉES STRUCTURÉES (SEO) ============ */
+  function buildStructuredData() {
+    if (document.body.dataset.page !== 'home') return;
+    var s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'TravelAgency',
+      name: 'Access Tourisme',
+      telephone: CFG.telephone,
+      email: CFG.email,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: CFG.adresse,
+        addressLocality: CFG.ville
+      }
+    });
+    document.head.appendChild(s);
+  }
+
   /* ============================ DÉMARRAGE ============================ */
   document.addEventListener('DOMContentLoaded', function () {
     buildHeader();
     buildFooter();
     buildWhatsAppFab();
+    buildStructuredData();
     var page = document.body.dataset.page;
     if (page === 'home') renderHome();
     else if (page === 'offres') renderOffres();

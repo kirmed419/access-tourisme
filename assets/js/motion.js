@@ -19,12 +19,13 @@
     if (window.Swiper) {
       var hero = document.querySelector('.hero-swiper');
       if (hero) {
+        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         new Swiper(hero, {
           effect: 'fade',
           fadeEffect: { crossFade: true },
           loop: true,
           speed: 1400,
-          autoplay: { delay: 5200, disableOnInteraction: false },
+          autoplay: reduceMotion ? false : { delay: 5200, disableOnInteraction: false },
           pagination: { el: '.hero__dots', clickable: true }
         });
       }

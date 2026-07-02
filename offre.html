@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#3C4448">
   <title>Détail de l'offre — Access Tourisme</title>
   <meta name="description" content="Découvrez le détail de ce voyage : programme, prix, ce qui est inclus et informations pratiques. Réservez en quelques clics avec Access Tourisme.">
 
@@ -23,7 +24,27 @@
   <header id="site-header"></header>
 
   <main id="main">
-    <div id="offer-detail"></div>
+    <div id="offer-detail" aria-busy="true">
+      <div class="offer-hero skeleton-hero skel"></div>
+      <div class="container section">
+        <div class="offer-layout">
+          <div class="offer-main">
+            <div class="skeleton-title skel"></div>
+            <div class="skeleton-text w-100 skel"></div>
+            <div class="skeleton-text w-90 skel"></div>
+            <div class="skeleton-text w-70 skel"></div>
+          </div>
+          <aside class="offer-aside">
+            <div class="skeleton-price-card">
+              <div class="skeleton-text w-50 skel" style="height:2.1rem"></div>
+              <div class="skeleton-text w-90 skel" style="margin-top:1.3rem"></div>
+              <div class="skeleton-text w-70 skel"></div>
+              <div class="skeleton-text w-90 skel"></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer id="site-footer" class="map-motif"></footer>
@@ -32,7 +53,6 @@
   <script src="assets/js/offres-data.js" defer></script>
   <script src="assets/js/site.js" defer></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
-  <script src="https://unpkg.com/swiper@11/swiper-bundle.min.js" defer></script>
   <script src="assets/js/motion.js" defer></script>
 </body>
 </html>
