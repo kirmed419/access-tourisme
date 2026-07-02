@@ -141,6 +141,10 @@ acess/
 - Carrousel du héros et des témoignages : bibliothèque **Swiper** (via CDN).
 - Apparitions au défilement : bibliothèque **AOS** (via CDN).
 
+## 📷 Crédits photos
+- `destinations/djerba.jpg` — « Houmt Souk » par Philippe Heckel, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Houmt_Souk-02-kleche.jpg), licence CC BY 2.0.
+- `destinations/azerbaidjan.jpg` — « Baku panorama » par Çələbi07, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Baku_panorama114.jpg), licence CC BY-SA 4.0.
+
 ---
 
 > ℹ️ Pour changer le numéro WhatsApp, modifiez la ligne `whatsapp` dans
