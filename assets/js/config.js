@@ -20,9 +20,9 @@ const SITE_CONFIG = {
   whatsapp: '213775209443',
 
   /* --- Coordonnées affichées sur le site --- */
-  telephone: '+213 5XX XX XX XX',          // numéro affiché (peut contenir des espaces)
+  telephone: '+213 775 20 94 43',          // numéro affiché (peut contenir des espaces)
   email: 'contact@accesstourisme.dz',
-  adresse: '12, Rue Didouche Mourad, Alger-Centre',
+  adresse: 'Birkhadem',
   ville: 'Alger, Algérie',
   horaires: 'Samedi – Jeudi : 9h00 – 18h00  ·  Vendredi : fermé',
 
@@ -35,9 +35,9 @@ const SITE_CONFIG = {
 
   /* --- Carte (Contact) : coordonnées du bureau pour la carte OpenStreetMap --- */
   carte: {
-    // Coordonnées d'Alger-Centre (modifiez avec celles de votre agence)
-    lat: 36.7679,
-    lng: 3.0589,
+    // Coordonnées de Birkhadem (modifiez avec celles exactes de votre agence)
+    lat: 36.7139,
+    lng: 3.0553,
     zoom: 15
   }
 };
