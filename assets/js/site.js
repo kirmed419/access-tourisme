@@ -21,16 +21,9 @@
     check:    '<polyline points="20 6 9 17 4 12"/>',
     checkc:   '<circle cx="12" cy="12" r="10"/><polyline points="16 9.5 11 14.5 8 11.5"/>',
     x:        '<line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>',
-    calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
     tag:      '<path d="M20.59 13.41 11 3.82A2 2 0 0 0 9.59 3H4a1 1 0 0 0-1 1v5.59A2 2 0 0 0 3.59 11l9.59 9.59a2 2 0 0 0 2.83 0l4.59-4.59a2 2 0 0 0 0-2.83z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor" stroke="none"/>',
     phone:    '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
     mail:     '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/>',
-    map:      '<polygon points="1 6 8 3 16 6 23 3 23 18 16 21 8 18 1 21 1 6"/><line x1="8" y1="3" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="21"/>',
-    clockh:   '<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/>',
-    shield:   '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>',
-    wallet:   '<path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><circle cx="16" cy="14" r="1.4" fill="currentColor" stroke="none"/>',
-    headset:  '<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><path d="M20 15a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2zM4 15a2 2 0 0 0 2 2h1v-5H6a2 2 0 0 0-2 2z"/><path d="M18 17v1a3 3 0 0 1-3 3h-3"/>',
-    chat:     '<path d="M21 11.5a8.38 8.38 0 0 1-9 8.37 9 9 0 0 1-4-.93L3 21l1.06-3.18A8.5 8.5 0 1 1 21 11.5z"/>',
     arrow:    '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
     info:     '<circle cx="12" cy="12" r="10"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="8" r="1" fill="currentColor" stroke="none"/>',
     sun:      '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
@@ -188,7 +181,7 @@
       '<article class="offer-card" data-aos="fade-up" data-aos-delay="' + delay + '">' +
         '<a class="offer-card__media" href="offre.html?id=' + o.id + '" aria-label="' + esc(o.destination) + '">' +
           '<span class="offer-card__cat">' + esc(o.categorie) + '</span>' +
-          '<img src="' + o.image + '" alt="' + esc(o.destination + ', ' + o.pays) + '" loading="lazy"' + IMG_FALLBACK + '>' +
+          '<img src="' + o.image + '" alt="' + esc(o.destination + ', ' + o.pays) + '" loading="lazy" decoding="async"' + IMG_FALLBACK + '>' +
         '</a>' +
         '<div class="offer-card__body">' +
           '<h3><a href="offre.html?id=' + o.id + '">' + esc(o.destination) + '</a></h3>' +
@@ -292,7 +285,7 @@
               // Tant que la photo de l'hôtel n'est pas fournie (champ "image"),
               // on affiche un emplacement réservé (skeleton) à sa place.
               var media = h.image
-                ? '<div class="hotel-item__media"><img src="' + h.image + '" alt="' + esc(h.nom) + '" loading="lazy"></div>'
+                ? '<div class="hotel-item__media"><img src="' + h.image + '" alt="' + esc(h.nom) + '" loading="lazy" decoding="async"></div>'
                 : '<div class="hotel-item__media hotel-item__media--pending skel" title="Photo à venir">' + icon('hotel') + '</div>';
               return '<li class="hotel-item">' + media +
                 '<div><b>' + esc(h.nom) + stars + '</b>' +
@@ -344,7 +337,7 @@
       '</div>' +
 
       '<div class="container section">' +
-        '<nav class="breadcrumb"><a href="index.html">Accueil</a> / <a href="offres.html">Nos offres</a> / <span>' + esc(o.destination) + '</span></nav>' +
+        '<nav class="breadcrumb" aria-label="Fil d\'Ariane"><a href="index.html">Accueil</a> <span aria-hidden="true">›</span> <a href="offres.html">Nos offres</a> <span aria-hidden="true">›</span> <span>' + esc(o.destination) + '</span></nav>' +
         '<div class="offer-layout">' +
 
           '<div class="offer-main">' +

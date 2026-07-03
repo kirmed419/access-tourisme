@@ -129,14 +129,12 @@ body::before {
   padding-inline: clamp(1.1rem, 4vw, 2rem);
 }
 .section { padding-block: clamp(3.25rem, 8vw, 6rem); }
-.section--tight { padding-block: clamp(2.5rem, 6vw, 4rem); }
 .section--cream { background: var(--cream-100); }
 .section--dark  { background: var(--charcoal); color: var(--cream); }
 .section--dark h1, .section--dark h2, .section--dark h3 { color: #fff; }
 .section--dark p { color: rgba(255,255,255,.78); }
 
 .center { text-align: center; }
-.muted  { color: var(--slate); }
 
 /* En-tête de section réutilisable */
 .eyebrow {
@@ -172,8 +170,6 @@ body::before {
 .section-title { font-size: clamp(1.8rem, 4.2vw, 2.7rem); }
 .section-head p { margin-top: .9rem; font-size: 1.08rem; }
 
-.lead { font-size: 1.15rem; line-height: 1.6; color: var(--slate); }
-
 /* ----------------------------- 4. BOUTONS ------------------------------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .55em;
@@ -194,15 +190,6 @@ body::before {
 
 .btn-gold   { background: var(--gold); color: var(--charcoal-900); box-shadow: 0 1px 2px rgba(33,39,42,.12); }
 .btn-gold:hover { background: var(--gold-600); }
-
-.btn-dark   { background: var(--charcoal); color: #fff; }
-.btn-dark:hover { background: var(--charcoal-700); }
-
-.btn-outline{ background: transparent; color: var(--ink); border-color: rgba(60,68,72,.35); }
-.btn-outline:hover { background: var(--charcoal); color: #fff; border-color: var(--charcoal); }
-
-.btn-light  { background: #fff; color: var(--ink); }
-.btn-light:hover { background: var(--gold); color: var(--charcoal-900); }
 
 .btn-wa     { background: var(--wa-green); color: #fff; box-shadow: 0 1px 2px rgba(33,39,42,.12); }
 .btn-wa:hover { background: var(--wa-green-d); }
@@ -363,6 +350,7 @@ body::before {
   font-size: .72rem; font-weight: 800; letter-spacing: .06em;
   text-transform: uppercase;
   padding: .3rem .6rem; border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(33,39,42,.25);
 }
 .offer-card__body { display: flex; flex-direction: column; flex: 1; padding: 1.3rem 1.3rem 1.4rem; }
 .offer-card__body h3 { font-size: 1.4rem; }
@@ -500,6 +488,7 @@ body::before {
 .breadcrumb { font-size: .88rem; color: var(--slate); margin-bottom: 1.2rem; }
 .breadcrumb a:hover { color: var(--gold-700); }
 .breadcrumb span { color: var(--ink); font-weight: 600; }
+.breadcrumb span[aria-hidden] { color: var(--gold-700); font-weight: 400; }
 
 .filters { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-bottom: 2rem; }
 .chip {
@@ -509,7 +498,7 @@ body::before {
   font-weight: 700; font-size: .92rem;
   transition: all .15s var(--ease);
 }
-.chip:hover { border-color: var(--charcoal); }
+.chip:hover { border-color: var(--charcoal); transform: translateY(-1px); }
 .chip.active { background: var(--charcoal); color: #fff; border-color: var(--charcoal); }
 .filters__budget { margin-left: auto; }
 .filters__budget select {
@@ -556,6 +545,7 @@ body::before {
   color: var(--ink);
 }
 .program summary::-webkit-details-marker { display: none; }
+.program summary:hover { background: var(--cream); }
 .program summary::after {
   content: "+"; margin-left: auto; font-size: 1.4rem; color: var(--gold-700);
   font-weight: 400; transition: transform .2s;
@@ -609,6 +599,7 @@ body::before {
 /* Barre de réservation fixe (mobile) */
 .sticky-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+  animation: bar-rise .45s var(--ease) both;
   display: flex; align-items: center; gap: 1rem;
   background: #fff; border-top: 1px solid var(--line);
   box-shadow: 0 -6px 20px rgba(33,39,42,.1);
@@ -619,6 +610,7 @@ body::before {
 .sticky-bar__price small { display: block; font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--slate); font-weight: 700; }
 .sticky-bar__price b { font-family: "Fraunces", serif; font-size: 1.2rem; color: var(--ink); }
 .sticky-bar .btn { margin-left: auto; }
+@keyframes bar-rise { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
 /* --------------------- 17. PAGES À PROPOS / CONTACT -------------------- */
 .split { display: grid; gap: 2.4rem; grid-template-columns: 1fr; align-items: center; }
@@ -647,13 +639,10 @@ body::before {
 .map-embed iframe { display: block; width: 100%; height: 320px; border: 0; }
 
 /* ----------------------------- 18. UTILITAIRES ------------------------- */
-.hidden { display: none !important; }
-.mt-2 { margin-top: 2rem; }
 .text-gold { color: var(--gold-700); }
 
 /* ----------------------------- 19. RESPONSIVE -------------------------- */
 @media (min-width: 560px) {
-  .trust__grid { grid-template-columns: 1fr 1fr; }
   .stats { gap: 1.5rem; }
 }
 
@@ -674,9 +663,7 @@ body::before {
 }
 
 @media (min-width: 980px) {
-  .trust__grid { grid-template-columns: repeat(4, 1fr); padding-block: 2.2rem; }
   .offers-grid { grid-template-columns: repeat(3, 1fr); }
-  .offers-grid--two { grid-template-columns: repeat(2, 1fr); }
   .offer-layout { grid-template-columns: 1fr 360px; gap: 3rem; }
   .booking-card { position: sticky; top: calc(var(--header-h) + 1.5rem); }
 }

@@ -23,7 +23,7 @@
         new Swiper(hero, {
           effect: 'fade',
           fadeEffect: { crossFade: true },
-          loop: true,
+          rewind: true,
           speed: 1400,
           autoplay: reduceMotion ? false : { delay: 5200, disableOnInteraction: false },
           pagination: { el: '.hero__dots', clickable: true }

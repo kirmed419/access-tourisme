@@ -109,6 +109,13 @@ Aucune configuration de serveur ni de base de données n'est nécessaire.
 
 ---
 
+## 📚 Documentation
+
+- **[docs/JOURNAL.md](docs/JOURNAL.md)** — journal de tout ce qui a été fait sur le site.
+- **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** — comment le code fonctionne, fichier par fichier.
+
+---
+
 ## 📁 Structure du projet
 
 ```
@@ -121,6 +128,7 @@ acess/
 ├── contact.html            Contact + carte + formulaire
 ├── logo.jpeg               Logo fourni (ne pas remplacer sans raison)
 ├── README.md               Ce fichier
+├── docs/                   Journal du projet + architecture technique
 └── assets/
     ├── css/style.css       Toute la mise en forme (couleurs, polices…)
     ├── js/
