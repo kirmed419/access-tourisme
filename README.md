@@ -153,6 +153,9 @@ acess/
 - `destinations/djerba.jpg` — « Houmt Souk » par Philippe Heckel, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Houmt_Souk-02-kleche.jpg), licence CC BY 2.0.
 - `destinations/azerbaidjan.jpg` — « Baku panorama » par Çələbi07, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Baku_panorama114.jpg), licence CC BY-SA 4.0.
 - `destinations/tunisie.jpg` — « Port El Kantaoui Marina, Sousse » par Tony Hisgett, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Port_El_Kantaoui_Marina,_Sousse.jpg), licence CC BY 2.0.
+- `hotels/el-mouradi-palm-marina.jpg` — par Jorge Franganillo, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sousse_El_Mouradi_Palm_Marina_(16031997751).jpg), licence CC BY 2.0.
+- `hotels/el-mouradi-club-selima.jpg` — par Дмитрий Заякин, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:El_Mouradi_Club_Selima_-_panoramio.jpg), licence CC BY 3.0.
+- `hotels/marabout.jpg` — par Sz. Péter '75, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Marabout_hotel_-_panoramio.jpg), licence CC BY-SA 3.0.
 
 ---
 

@@ -62,14 +62,14 @@ const OFFRES = [
     hotels: [
       { nom: 'Tree House', ville: 'Sousse', etoiles: 3, formule: 'Demi-pension' },
       { nom: 'Sol Palmeras', ville: 'Sousse', etoiles: 3, formule: 'Tout compris' },
-      { nom: 'El Mouradi Club Selima', ville: 'Sousse', etoiles: 3, formule: 'Tout compris' },
-      { nom: 'Marabout', ville: 'Sousse', etoiles: 3, formule: 'Tout compris' },
+      { nom: 'El Mouradi Club Selima', ville: 'Sousse', etoiles: 3, formule: 'Tout compris', image: 'assets/img/hotels/el-mouradi-club-selima.jpg' },
+      { nom: 'Marabout', ville: 'Sousse', etoiles: 3, formule: 'Tout compris', image: 'assets/img/hotels/marabout.jpg' },
       { nom: 'Hannibal Palace', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium' },
       { nom: 'Orient Palace', ville: 'Sousse', etoiles: 4, formule: 'Tout compris' },
       { nom: 'El Mouradi Club Kantaoui', ville: 'Port El Kantaoui', etoiles: 4, formule: 'Tout compris' },
       { nom: 'Kanta Resort', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium' },
       { nom: 'Golf Residence', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium' },
-      { nom: 'El Mouradi Palm Marina', ville: 'Port El Kantaoui', etoiles: 5, formule: 'Tout compris' }
+      { nom: 'El Mouradi Palm Marina', ville: 'Port El Kantaoui', etoiles: 5, formule: 'Tout compris', image: 'assets/img/hotels/el-mouradi-palm-marina.jpg' }
     ],
     voyageurs: 'Voyage organisé en bus',
     resume: 'Sept départs d’été vers Sousse en bus climatisé, avec dix hôtels de 3 à 5 étoiles selon votre budget.',
