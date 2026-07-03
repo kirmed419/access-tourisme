@@ -198,7 +198,7 @@
             '<span class="offer-card__duration">' + icon('clock') + esc(o.duree) + '</span>' +
             '<span class="offer-card__price"><small>À partir de</small><b>' + fmtPrice(o.prix) + '</b></span>' +
           '</div>' +
-          '<a href="offre.html?id=' + o.id + '" class="btn btn-outline btn-block">Voir l\'offre</a>' +
+          '<a href="offre.html?id=' + o.id + '" class="arrow-link">Voir l\'offre' + icon('arrow') + '</a>' +
         '</div>' +
       '</article>';
   }
