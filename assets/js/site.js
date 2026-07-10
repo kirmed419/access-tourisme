@@ -76,7 +76,11 @@
     host.innerHTML =
       '<div class="container header-inner">' +
         '<a href="index.html" class="brand" aria-label="Access Tourisme — Accueil">' +
-          '<img src="assets/img/site/logo-header.png" alt="Access Tourisme, agence de voyages" width="55" height="52">' +
+          '<img class="brand__mark" src="assets/img/site/logo-symbol.png?v=2" alt="" width="52" height="52">' +
+          '<span class="brand__copy">' +
+            '<span class="brand__name">Access Tourisme</span>' +
+            '<span class="brand__tagline">Agence de voyages</span>' +
+          '</span>' +
         '</a>' +
         '<button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="main-nav">' +
           '<span></span><span></span><span></span>' +

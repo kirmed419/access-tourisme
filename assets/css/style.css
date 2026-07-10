@@ -226,8 +226,21 @@ body::before {
   display: flex; align-items: center; justify-content: space-between;
   gap: 1rem; min-height: var(--header-h);
 }
-.brand { display: inline-flex; align-items: center; }
-.brand img { height: 52px; width: auto; }
+.brand {
+  display: inline-flex; align-items: center; gap: .65rem;
+  min-width: 0; color: #fff;
+}
+.brand__mark { width: 52px; height: 52px; flex: none; object-fit: contain; }
+.brand__copy { display: grid; line-height: 1.05; }
+.brand__name {
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  font-size: 1.15rem; font-weight: 600; white-space: nowrap;
+}
+.brand__tagline {
+  margin-top: .25rem; color: rgba(255,255,255,.68);
+  font-size: .61rem; font-weight: 800; letter-spacing: .13em;
+  text-transform: uppercase; white-space: nowrap;
+}
 
 .nav { display: flex; align-items: center; gap: .35rem; }
 .nav__brand { display: none; }
@@ -278,22 +291,37 @@ body::before {
     linear-gradient(180deg, rgba(33,39,42,.5) 0%, rgba(33,39,42,.4) 35%, rgba(33,39,42,.85) 100%),
     linear-gradient(90deg, rgba(33,39,42,.75) 0%, rgba(33,39,42,.18) 72%);
 }
-.hero__inner { position: relative; z-index: 2; padding-block: 4rem; max-width: 680px; }
-.hero .eyebrow { color: var(--gold); }
+.hero__mark {
+  position: absolute; z-index: 2; top: 50%; right: clamp(-9rem, -3vw, -2rem);
+  width: clamp(320px, 38vw, 570px); height: auto;
+  opacity: .13; transform: translateY(-48%) rotate(-8deg);
+  pointer-events: none; user-select: none;
+}
+.hero__inner { position: relative; z-index: 3; padding-block: 4rem 5.5rem; max-width: 680px; }
+.hero__brandline {
+  display: flex; align-items: center; flex-wrap: wrap; gap: .35rem .7rem;
+  margin-bottom: 1rem; color: rgba(255,255,255,.9);
+  font-size: .74rem; font-weight: 800; letter-spacing: .12em;
+  line-height: 1.4; text-transform: uppercase;
+}
+.hero__brandline::before {
+  content: ""; width: 24px; height: 2px; flex: none;
+  background: var(--gold); border-radius: 2px;
+}
+.hero__brandline span:last-child { color: var(--gold); }
 .hero h1 {
   color: #fff;
   font-size: clamp(2.3rem, 6.4vw, 4.2rem);
   line-height: 1.05;
 }
 .hero h1 em { font-style: italic; color: var(--gold); }
-.hero p { color: rgba(255,255,255,.9); font-size: 1.2rem; margin-top: 1.2rem; max-width: 33ch; }
-.hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.8rem; margin-top: 2rem; }
-.hero-link { color: #fff; font-weight: 700; }
+.hero p { color: rgba(255,255,255,.9); font-size: 1.15rem; margin-top: 1rem; max-width: 32ch; }
+.hero__cta { display: flex; align-items: center; margin-top: 1.8rem; }
 
 /* Puces de progression du carrousel héros — minimalistes, alignées à gauche */
 .hero__dots {
-  position: relative; z-index: 2;
-  display: flex; gap: .5rem; margin-top: clamp(2.4rem, 6vw, 3.6rem);
+  position: absolute; z-index: 2; bottom: 2.15rem; left: 0;
+  display: flex; gap: .5rem;
 }
 .hero__dots .swiper-pagination-bullet {
   width: 28px; height: 3px; border-radius: 2px;
@@ -670,6 +698,10 @@ body::before {
 
 /* --- Menu mobile : sous 880px on bascule en menu déroulant --- */
 @media (max-width: 879px) {
+  .brand { gap: .5rem; }
+  .brand__mark { width: 46px; height: 46px; }
+  .brand__name { font-size: 1.05rem; }
+  .brand__tagline { font-size: .56rem; }
   .nav-toggle { display: block; }
   .nav {
     position: fixed; inset: var(--header-h) 0 auto 0;
@@ -693,6 +725,19 @@ body::before {
     font-family: "Fraunces", serif; font-size: 1.15rem; color: #fff;
   }
   .nav__brand img { height: 30px; width: 30px; }
+}
+
+@media (max-width: 560px) {
+  .hero__inner { padding-block: 3.25rem 4.8rem; }
+  .hero__mark {
+    top: 54%; right: -9.5rem; width: 330px;
+    opacity: .08; transform: translateY(-50%) rotate(-12deg);
+  }
+  .hero__brandline { gap: .2rem .55rem; margin-bottom: .85rem; font-size: .66rem; letter-spacing: .09em; }
+  .hero__brandline::before { width: 20px; }
+  .hero__brandline span:last-child { flex-basis: 100%; margin-left: 25px; }
+  .hero p { font-size: 1.08rem; }
+  .hero__dots { bottom: 1.6rem; }
 }
 
 /* --------------------- 20. SQUELETTES DE CHARGEMENT --------------------- */
