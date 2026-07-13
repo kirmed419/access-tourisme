@@ -328,6 +328,139 @@ const OFFRES = [
     },
     populaire: true
   },
+  {
+    id: 'sousse-avion-juillet',
+    destination: 'Sousse par avion',
+    pays: 'Tunisie',
+    categorie: 'International',
+    image: 'assets/img/destinations/tunisie.jpg',
+    duree: '8 jours / 7 nuits',
+    depart: 'Départ unique du 14 au 21 juillet 2026',
+    prix: 97000,
+    pricing: [
+      { label: 'Adulte en chambre double, à partir de', prix: 97000 },
+      { label: '1er enfant, à partir de', prix: 45000 },
+      { label: 'Bébé', prix: 8000 }
+    ],
+    departures: [
+      { date: '14 → 21 juillet 2026', duree: '8 jours / 7 nuits', compagnie: 'Voyage en avion' }
+    ],
+    pricingGroups: [
+      {
+        title: 'Houria Palace 4★', note: 'Demi-pension',
+        periods: [{ label: 'Tarifs du séjour', tarifs: [
+          { label: 'Adulte', prix: 97000 }, { label: '1er enfant de moins de 6 ans', prix: 45000 },
+          { label: '2e enfant de 2 à 11,99 ans', prix: 71000 }, { label: 'Bébé', prix: 8000 }
+        ] }]
+      },
+      {
+        title: 'Soviva 3★', note: 'All Inclusive Soft',
+        periods: [{ label: 'Tarifs du séjour', tarifs: [
+          { label: 'Adulte', prix: 104000 }, { label: '1er enfant de moins de 6 ans', prix: 45000 },
+          { label: '2e enfant de 2 à 11,99 ans', prix: 74000 }, { label: 'Chambre individuelle', prix: 132000 },
+          { label: 'Bébé', prix: 8000 }
+        ] }]
+      },
+      {
+        title: 'Golf Residence 4★', note: 'Demi-pension',
+        periods: [{ label: 'Tarifs du séjour', tarifs: [
+          { label: 'Adulte', prix: 128000 }, { label: '1er enfant de moins de 6 ans', prix: 45000 },
+          { label: '2e enfant de 2 à 11,99 ans', prix: 85500 }, { label: 'Chambre individuelle', prix: 186000 },
+          { label: 'Bébé', prix: 8000 }
+        ] }]
+      },
+      {
+        title: 'Orient Palace 4★', note: 'All Inclusive Soft',
+        periods: [{ label: 'Tarifs du séjour', tarifs: [
+          { label: 'Adulte', prix: 137000 }, { label: '1er enfant de moins de 6 ans', prix: 45000 },
+          { label: '2e enfant de 2 à 11,99 ans', prix: 91000 }, { label: 'Chambre individuelle', prix: 171000 },
+          { label: 'Bébé', prix: 8000 }
+        ] }]
+      },
+      {
+        title: 'El Mouradi Club Selima 3★', note: 'All Inclusive Soft',
+        periods: [{ label: 'Tarifs du séjour', tarifs: [
+          { label: 'Adulte', prix: 130000 }, { label: '2e enfant de 2 à 11,99 ans', prix: 88000 },
+          { label: 'Chambre individuelle', prix: 177000 }, { label: 'Bébé', prix: 8000 }
+        ] }]
+      },
+      {
+        title: 'Kanta 4★', note: 'Demi-pension',
+        periods: [{ label: 'Tarifs du séjour', tarifs: [
+          { label: 'Adulte', prix: 132000 }, { label: '1er enfant de moins de 4 ans', prix: 45000 },
+          { label: '2e enfant de 2 à 11,99 ans', prix: 89000 }, { label: 'Chambre individuelle', prix: 158000 },
+          { label: 'Bébé', prix: 8000 }
+        ] }]
+      },
+      {
+        title: 'Riviera 4★', note: 'All Inclusive Soft',
+        periods: [{ label: 'Tarifs du séjour', tarifs: [
+          { label: 'Adulte', prix: 151500 }, { label: 'Enfant de 2 à 11,99 ans', prix: 111000 },
+          { label: 'Bébé', prix: 8000 }
+        ] }]
+      }
+    ],
+    hotels: [
+      { nom: 'Houria Palace', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension' },
+      { nom: 'Soviva', ville: 'Sousse', etoiles: 3, formule: 'All Inclusive Soft' },
+      { nom: 'Golf Residence', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension' },
+      { nom: 'Orient Palace', ville: 'Sousse', etoiles: 4, formule: 'All Inclusive Soft' },
+      { nom: 'El Mouradi Club Selima', ville: 'Sousse', etoiles: 3, formule: 'All Inclusive Soft', image: 'assets/img/hotels/el-mouradi-club-selima.jpg' },
+      { nom: 'Kanta', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension' },
+      { nom: 'Riviera', ville: 'Sousse', etoiles: 4, formule: 'All Inclusive Soft' }
+    ],
+    voyageurs: 'Séjour en avion',
+    resume: 'Une semaine à Sousse par avion avec sept hôtels de 3 à 4 étoiles et des tarifs détaillés par hôtel.',
+    description: 'Un départ spécial vers Sousse en avion, avec sept nuits dans l’hôtel de votre choix. Les tarifs publiés varient selon l’établissement, la formule de pension, l’âge des enfants et le type de chambre.',
+    inclus: [
+      'Billet d’avion aller-retour',
+      'Bagages inclus',
+      '7 nuits d’hébergement',
+      'Pension selon l’hôtel choisi',
+      'Transfert aéroport–hôtel',
+      'Assistance durant tout le séjour'
+    ],
+    nonInclus: ['Prestations non mentionnées dans la rubrique « inclus »'],
+    programme: [],
+    infos: {
+      visa: 'Aucun visa — carte d’identité ou passeport en cours de validité',
+      aPrevoir: 'Départ très proche et places limitées : confirmer immédiatement les disponibilités avec l’agence.'
+    },
+    populaire: false
+  },
+  {
+    id: 'sousse-riadh-palms',
+    destination: 'Sousse — Riadh Palms',
+    pays: 'Tunisie',
+    categorie: 'International',
+    image: 'assets/img/destinations/tunisie.jpg',
+    duree: '7 jours / 6 nuits',
+    depart: 'Séjour du 25 au 31 juillet 2026',
+    prix: 89990,
+    pricing: [
+      { label: 'Par personne en chambre double', prix: 89990 },
+      { label: 'Deux personnes en chambre double', prix: 179990 }
+    ],
+    departures: [{ date: '25 → 31 juillet 2026', duree: '7 jours / 6 nuits', statut: 'Offre limitée' }],
+    pricingGroups: [{
+      title: 'Riadh Palms Resort & Spa 4★', note: 'All Inclusive Soft · transport non inclus',
+      periods: [{ label: 'Chambre double', tarifs: [
+        { label: 'Par personne', prix: 89990 }, { label: 'Deux personnes', prix: 179990 }
+      ] }]
+    }],
+    hotels: [{ nom: 'Riadh Palms Resort & Spa', ville: 'Sousse', etoiles: 4, formule: 'All Inclusive Soft' }],
+    voyageurs: 'Séjour sans transport',
+    resume: 'Offre limitée au Riadh Palms 4★ de Sousse, en All Inclusive Soft, du 25 au 31 juillet.',
+    description: 'Une offre hôtelière limitée au Riadh Palms Resort & Spa 4★ à Sousse, en formule All Inclusive Soft. Le prix publié est calculé par personne en chambre double et le transport n’est pas compris.',
+    inclus: ['6 nuits au Riadh Palms Resort & Spa 4★', 'Formule All Inclusive Soft'],
+    nonInclus: ['Transport aller-retour', 'Dépenses personnelles'],
+    programme: [],
+    infos: {
+      visa: 'Aucun visa — carte d’identité ou passeport en cours de validité',
+      aPrevoir: 'Offre limitée. Tarif valable par personne en chambre double, sous réserve de disponibilité.'
+    },
+    populaire: false
+  },
 
   /* ------------------------------- ASIE ------------------------------- */
   {
@@ -436,6 +569,166 @@ const OFFRES = [
     populaire: true
   },
 
+  {
+    id: 'kuala-lumpur-phu-quoc',
+    destination: 'Kuala Lumpur & Phu Quoc',
+    pays: 'Malaisie & Vietnam',
+    categorie: 'Asie',
+    image: 'assets/img/destinations/phu-quoc.jpg',
+    duree: '12 jours / 11 nuits',
+    depart: 'Deux départs : 26 juillet et 27 août 2026',
+    prix: 429000,
+    pricing: [{ label: 'Prix par personne, à partir de', prix: 429000 }],
+    departures: [
+      { date: '26 juillet → 6 août 2026', duree: '12 jours / 11 nuits', compagnie: 'Qatar Airways', prix: 429000 },
+      { date: '27 août → 7 septembre 2026', duree: '12 jours / 11 nuits', compagnie: 'Qatar Airways', prix: 429000 }
+    ],
+    pricingGroups: [{
+      title: 'Forfait Kuala Lumpur & Phu Quoc', note: 'Hôtels 5★ · Qatar Airways',
+      periods: [{ label: 'Tarif publié', tarifs: [{ label: 'Prix par personne, à partir de', prix: 429000 }] }]
+    }],
+    hotels: [{ nom: 'Sélection Access Tourisme', ville: 'Kuala Lumpur & Phu Quoc', etoiles: 5, formule: 'Selon le programme' }],
+    voyageurs: 'Circuit accompagné',
+    resume: 'Un combiné entre Kuala Lumpur et les plages de Phu Quoc, en hôtels 5★ avec Qatar Airways.',
+    description: 'Un voyage entre la modernité de Kuala Lumpur et les plages paradisiaques de Phu Quoc. Deux départs sont publiés, avec vols Qatar Airways, hébergement en hôtels 5 étoiles, transferts, excursions organisées et accompagnement professionnel.',
+    inclus: [
+      'Vol aller-retour avec Qatar Airways',
+      'Hébergement en hôtels 5★',
+      'Transferts',
+      'Excursions organisées',
+      'Guide accompagnateur professionnel'
+    ],
+    nonInclus: ['Prestations non mentionnées dans l’offre publiée'],
+    programme: [
+      { jour: 'Première étape', titre: 'Kuala Lumpur', detail: 'Découverte de la capitale malaisienne et programme d’excursions organisé.' },
+      { jour: 'Deuxième étape', titre: 'Phu Quoc', detail: 'Séjour balnéaire sur l’île vietnamienne de Phu Quoc.' }
+    ],
+    infos: {
+      visa: 'Formalités selon le profil du voyageur — confirmer les documents requis avec l’agence',
+      aPrevoir: 'Places limitées. L’ordre des étapes et le nom des hôtels sont à confirmer lors de la réservation.'
+    },
+    populaire: false
+  },
+
+  /* ------------------------------ EUROPE ------------------------------ */
+  {
+    id: 'istanbul-ete-2026',
+    destination: 'Istanbul — Été 2026',
+    pays: 'Turquie',
+    categorie: 'Europe',
+    image: 'assets/img/destinations/istanbul.jpg',
+    duree: '8 jours / 7 nuits',
+    depart: '14 départs du 23 juillet au 28 septembre 2026, avec retours jusqu’au 5 octobre',
+    prix: 155000,
+    pricing: [
+      { label: 'Adulte — juillet', prix: 155000 },
+      { label: 'Adulte — août et septembre', prix: 159000 },
+      { label: 'Chambre individuelle', prix: 205000 },
+      { label: 'Enfant de moins de 2 ans', prix: 25000 },
+      { label: 'Enfant de 2 à 5 ans', prix: 85000 },
+      { label: 'Enfant de 6 à 12 ans', prix: 125000 }
+    ],
+    departures: [
+      { date: '23 → 30 juillet 2026', compagnie: 'Turkish Airlines', prix: 155000 },
+      { date: '30 juillet → 6 août 2026', compagnie: 'Turkish Airlines', prix: 155000 },
+      { date: '4 → 11 août 2026', compagnie: 'Turkish Airlines', prix: 159000 },
+      { date: '11 → 18 août 2026', compagnie: 'Turkish Airlines', prix: 159000 },
+      { date: '18 → 25 août 2026', compagnie: 'Turkish Airlines', prix: 159000 },
+      { date: '25 août → 1er septembre 2026', compagnie: 'Turkish Airlines', prix: 159000 },
+      { date: '30 août → 6 septembre 2026', compagnie: 'Turkish Airlines', prix: 159000 },
+      { date: '7 → 14 septembre 2026', compagnie: 'Turkish Airlines', prix: 159000 },
+      { date: '8 → 15 septembre 2026', compagnie: 'Turkish Airlines', prix: 159000 },
+      { date: '14 → 21 septembre 2026', compagnie: 'Turkish Airlines', prix: 159000 },
+      { date: '20 → 27 septembre 2026', compagnie: 'Turkish Airlines', prix: 159000 },
+      { date: '21 → 28 septembre 2026', compagnie: 'Turkish Airlines', prix: 159000 },
+      { date: '22 → 29 septembre 2026', compagnie: 'Turkish Airlines', prix: 159000 },
+      { date: '28 septembre → 5 octobre 2026', compagnie: 'Turkish Airlines', prix: 159000 }
+    ],
+    pricingGroups: [{
+      title: 'Hotel Martinez Istanbul 4★', note: 'Centre-ville · petit-déjeuner buffet inclus',
+      periods: [
+        { label: 'Tarif adulte par période', tarifs: [
+          { label: 'Départs de juillet', prix: 155000 },
+          { label: 'Départs d’août', prix: 159000 },
+          { label: 'Départs de septembre', prix: 159000 }
+        ] },
+        { label: 'Autres tarifs', tarifs: [
+          { label: 'Chambre individuelle', prix: 205000 },
+          { label: 'Enfant de moins de 2 ans', prix: 25000 },
+          { label: 'Enfant de 2 à 5 ans', prix: 85000 },
+          { label: 'Enfant de 6 à 12 ans', prix: 125000 }
+        ] }
+      ]
+    }],
+    hotels: [{ nom: 'Hotel Martinez Istanbul', ville: 'Istanbul centre', etoiles: 4, formule: 'Petit-déjeuner buffet inclus' }],
+    voyageurs: 'Voyage organisé',
+    resume: 'Istanbul en 8 jours avec Turkish Airlines, hôtel 4★ au centre et plus de 21 excursions incluses.',
+    description: 'L’un des programmes phares de l’été 2026 à Istanbul : sept nuits à l’Hotel Martinez 4★ au centre-ville, vols Turkish Airlines et un programme de plus de 21 excursions. L’agence offre également Maşukiye, Sapanca et une expérience rafting avec petit-déjeuner buffet.',
+    inclus: [
+      'Billet d’avion aller-retour avec Turkish Airlines',
+      'Plus de 21 excursions touristiques',
+      '7 nuits à l’Hotel Martinez Istanbul 4★',
+      'Petit-déjeuner buffet',
+      'Transferts aéroport–hôtel–aéroport',
+      'Guides accompagnateurs arabophones',
+      'Traitement du dossier de visa offert',
+      'Rendez-vous de visa offert',
+      'Excursion Maşukiye & Sapanca, rafting et petit-déjeuner buffet offerts'
+    ],
+    nonInclus: ['Frais de visa', 'Dépenses personnelles'],
+    programme: [],
+    infos: {
+      visa: 'Traitement du dossier et rendez-vous offerts ; frais de visa non inclus',
+      aPrevoir: 'Passeport valide et documents demandés pour le dossier de visa.'
+    },
+    populaire: true
+  },
+
+  /* ---------------------------- ZANZIBAR ----------------------------- */
+  {
+    id: 'zanzibar-ete-2026',
+    destination: 'Zanzibar — Été 2026',
+    pays: 'Tanzanie',
+    categorie: 'International',
+    image: 'assets/img/destinations/zanzibar.jpg',
+    duree: '11 jours / 10 nuits',
+    depart: 'Départ le 20 août 2026 au départ d’Alger',
+    prix: 415000,
+    pricing: [{ label: 'Par personne en chambre double, à partir de', prix: 415000 }],
+    departures: [{ date: '20 août 2026', duree: '11 jours / 10 nuits', compagnie: 'Qatar Airways · départ d’Alger', prix: 415000 }],
+    pricingGroups: [{
+      hotelIndex: 0,
+      title: 'Forfait Zanzibar', note: 'Demi-pension · chambre double',
+      periods: [{ label: 'Tarif publié', tarifs: [{ label: 'Par personne en chambre double, à partir de', prix: 415000 }] }]
+    }],
+    hotels: [
+      { nom: 'Hôtels sélectionnés par l’agence', ville: 'Zanzibar', formule: 'Demi-pension' },
+      { nom: 'Hôtel STPC', ville: 'Doha', formule: '1 nuit offerte' }
+    ],
+    voyageurs: 'Circuit accompagné',
+    resume: 'Onze jours à Zanzibar avec Qatar Airways, demi-pension, excursions, assurance et une nuit à Doha offerte.',
+    description: 'Un voyage d’exception à Zanzibar avec vols Qatar Airways au départ d’Alger, dix nuits, demi-pension, transferts terrestres et maritimes, excursions et assurance voyage. Une nuit d’hôtel à Doha dans le cadre du STPC est offerte.',
+    inclus: [
+      'Vols Qatar Airways au départ d’Alger',
+      '10 nuits dans des hôtels sélectionnés',
+      'Demi-pension',
+      'Transferts terrestres et maritimes',
+      'Excursions à Stone Town, Nakupenda Island, Mnemba Island, Metende Island et Salam Cave',
+      'Assurance voyage',
+      '1 nuit d’hôtel à Doha (STPC) offerte'
+    ],
+    nonInclus: ['Dépenses personnelles', 'Prestations non mentionnées dans l’offre publiée'],
+    programme: [
+      { jour: 'Pendant le séjour', titre: 'Zanzibar et ses îles', detail: 'Découverte de Stone Town et excursions vers Nakupenda Island, Mnemba Island, Metende Island et Salam Cave.' },
+      { jour: 'Escale', titre: 'Doha', detail: 'Une nuit d’hôtel STPC offerte selon les conditions du programme aérien.' }
+    ],
+    infos: {
+      visa: 'Formalités à confirmer avec l’agence avant la réservation',
+      aPrevoir: 'Places limitées. Tarif à partir de, calculé par personne en chambre double.'
+    },
+    populaire: true
+  },
+
   /* ------------------------------ ÉGYPTE ------------------------------ */
   {
     id: 'sharm-caire',
@@ -451,6 +744,22 @@ const OFFRES = [
       { label: 'DoubleTree by Hilton 5★ (double, juillet)', prix: 295000 },
       { label: 'Magic Life Redsina 5★ (double, juillet)', prix: 335000 },
       { label: 'Magic Life Redsina 5★ (family room, juillet)', prix: 360000 }
+    ],
+    pricingGroups: [
+      {
+        hotel: 'Hollywood Aquapark', title: 'Hollywood Aquapark 4★', note: 'Tarifs de juillet',
+        periods: [{ label: 'Chambre double', tarifs: [{ label: 'Par personne', prix: 259900 }] }]
+      },
+      {
+        hotel: 'DoubleTree by Hilton', title: 'DoubleTree by Hilton 5★', note: 'Tarifs de juillet',
+        periods: [{ label: 'Chambre double', tarifs: [{ label: 'Par personne', prix: 295000 }] }]
+      },
+      {
+        hotel: 'Magic Life Redsina', title: 'Magic Life Redsina 5★', note: 'Tarifs de juillet',
+        periods: [{ label: 'Types de chambre', tarifs: [
+          { label: 'Chambre double', prix: 335000 }, { label: 'Family Room', prix: 360000 }
+        ] }]
+      }
     ],
     departures: [
       { date: '27 juillet → 5 août 2026' },

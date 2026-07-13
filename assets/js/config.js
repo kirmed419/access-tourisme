@@ -51,7 +51,7 @@ const SITE_CONFIG = {
   /* --- Réseaux sociaux (mettez '#' pour masquer un lien) --- */
   social: {
     facebook:  'https://www.facebook.com/profile.php?id=100010098932574',
-    instagram: '#',
+    instagram: 'https://www.instagram.com/access_tourisme/',
     tiktok:    '#'
   },
 

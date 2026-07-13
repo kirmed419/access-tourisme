@@ -64,7 +64,9 @@
     { href: 'apropos.html',     label: 'À propos' },
     { href: 'contact.html',     label: 'Contact' }
   ];
-  var CATEGORIES = ['International', 'Asie'];
+  var CATEGORIES = OFFRES.map(function (o) { return o.categorie; }).filter(function (c, idx, all) {
+    return c && all.indexOf(c) === idx;
+  });
 
   function currentPage() {
     var f = location.pathname.split('/').pop();
@@ -295,20 +297,71 @@
 
     var hotels = '';
     if (o.hotels && o.hotels.length) {
+      function pricingForHotel(hotel, hotelIndex) {
+        var groups = o.pricingGroups || [];
+        var explicit = groups.filter(function (group) {
+          return group.hotel === hotel.nom || group.hotelIndex === hotelIndex;
+        });
+        if (explicit.length) return explicit;
+        if (o.hotels.length === groups.length) return groups[hotelIndex] ? [groups[hotelIndex]] : [];
+        if (o.hotels.length === 1) return groups;
+        return [];
+      }
+
+      function hotelPricingHtml(groups) {
+        if (!groups.length) return '';
+        var candidatePrices = [];
+        groups.forEach(function (group) {
+          (group.periods || []).forEach(function (period) {
+            if (/complet/i.test(period.note || '')) return;
+            var firstPrice = (period.tarifs || []).find(function (tarif) { return tarif.prix != null; });
+            if (firstPrice) candidatePrices.push(firstPrice.prix);
+          });
+        });
+        var fromPrice = candidatePrices.length ? Math.min.apply(Math, candidatePrices) : null;
+        return '<details class="hotel-price-details">' +
+          '<summary><span>Tarifs &amp; détails</span>' +
+            (fromPrice != null ? '<b>Dès ' + fmtPrice(fromPrice) + '</b>' : '') + '</summary>' +
+          '<div class="hotel-pricing-groups">' +
+            groups.map(function (group) {
+              return '<div class="hotel-price-group">' +
+                (groups.length > 1 ? '<h3>' + esc(group.title) + '</h3>' : '') +
+                (group.note ? '<p class="hotel-price-group__note">' + esc(group.note) + '</p>' : '') +
+                '<div class="pricing-periods">' +
+                  (group.periods || []).map(function (period) {
+                    return '<div class="pricing-period">' +
+                      '<h3>' + esc(period.label) + '</h3>' +
+                      (period.note ? '<p>' + esc(period.note) + '</p>' : '') +
+                      '<ul>' + (period.tarifs || []).map(function (tarif) {
+                        return '<li><span>' + esc(tarif.label) + '</span><b>' +
+                          (tarif.prix != null ? fmtPrice(tarif.prix) : esc(tarif.texte)) + '</b></li>';
+                      }).join('') + '</ul>' +
+                    '</div>';
+                  }).join('') +
+                '</div>' +
+              '</div>';
+            }).join('') +
+          '</div>' +
+        '</details>';
+      }
+
       hotels =
         '<section class="offer-section" data-aos="fade-up">' +
           '<h2>Hébergement</h2>' +
           '<ul class="hotel-list">' +
-            o.hotels.map(function (h) {
+            o.hotels.map(function (h, hotelIndex) {
               var stars = h.etoiles ? ' ' + Array(h.etoiles + 1).join('★') : '';
               // Tant que la photo de l'hôtel n'est pas fournie (champ "image"),
               // on affiche un emplacement réservé (skeleton) à sa place.
               var media = h.image
                 ? '<div class="hotel-item__media"><img src="' + h.image + '" alt="' + esc(h.nom) + '" loading="lazy" decoding="async"></div>'
                 : '<div class="hotel-item__media hotel-item__media--pending skel" title="Photo à venir">' + icon('hotel') + '</div>';
-              return '<li class="hotel-item">' + media +
-                '<div><b>' + esc(h.nom) + stars + '</b>' +
-                '<span>' + esc(h.ville) + (h.formule ? ' · ' + esc(h.formule) : '') + '</span></div>' +
+              return '<li class="hotel-item">' +
+                '<div class="hotel-item__summary">' + media +
+                  '<div><b>' + esc(h.nom) + stars + '</b>' +
+                  '<span>' + esc(h.ville) + (h.formule ? ' · ' + esc(h.formule) : '') + '</span></div>' +
+                '</div>' +
+                hotelPricingHtml(pricingForHotel(h, hotelIndex)) +
               '</li>';
             }).join('') +
           '</ul>' +
@@ -348,44 +401,16 @@
           '<h2>Dates de départ</h2>' +
           '<div class="departures-grid">' +
             o.departures.map(function (d) {
+              var isFull = /complet/i.test(d.statut || '');
               var details = [d.duree, d.hotel, d.compagnie].filter(Boolean).map(function (item) {
                 return '<span>' + esc(item) + '</span>';
               }).join('');
-              return '<article class="departure-card' + (d.statut ? ' departure-card--full' : '') + '">' +
+              return '<article class="departure-card' + (isFull ? ' departure-card--full' : '') + '">' +
                 '<div class="departure-card__head"><h3>' + esc(d.date) + '</h3>' +
-                  (d.statut ? '<span class="status-badge">' + esc(d.statut) + '</span>' : '') + '</div>' +
+                  (d.statut ? '<span class="status-badge' + (isFull ? '' : ' status-badge--alert') + '">' + esc(d.statut) + '</span>' : '') + '</div>' +
                 (details ? '<div class="departure-card__meta">' + details + '</div>' : '') +
                 (d.prix ? '<b class="departure-card__price">À partir de ' + fmtPrice(d.prix) + '</b>' : '') +
               '</article>';
-            }).join('') +
-          '</div>' +
-        '</section>';
-    }
-
-    var detailedPricing = '';
-    if (o.pricingGroups && o.pricingGroups.length) {
-      detailedPricing =
-        '<section class="offer-section pricing-details" data-aos="fade-up">' +
-          '<h2>Tarifs détaillés</h2>' +
-          '<p class="pricing-details__intro">Choisissez un hôtel ou une période pour voir les tarifs publiés.</p>' +
-          '<div class="pricing-accordion">' +
-            o.pricingGroups.map(function (group, idx) {
-              return '<details' + (idx === 0 ? ' open' : '') + '>' +
-                '<summary><span><b>' + esc(group.title) + '</b>' +
-                  (group.note ? '<small>' + esc(group.note) + '</small>' : '') + '</span></summary>' +
-                '<div class="pricing-periods">' +
-                  (group.periods || []).map(function (period) {
-                    return '<div class="pricing-period">' +
-                      '<h3>' + esc(period.label) + '</h3>' +
-                      (period.note ? '<p>' + esc(period.note) + '</p>' : '') +
-                      '<ul>' + (period.tarifs || []).map(function (tarif) {
-                        return '<li><span>' + esc(tarif.label) + '</span><b>' +
-                          (tarif.prix != null ? fmtPrice(tarif.prix) : esc(tarif.texte)) + '</b></li>';
-                      }).join('') + '</ul>' +
-                    '</div>';
-                  }).join('') +
-                '</div>' +
-              '</details>';
             }).join('') +
           '</div>' +
         '</section>';
@@ -425,8 +450,6 @@
             '</section>' +
 
             hotels +
-
-            detailedPricing +
 
             program +
 

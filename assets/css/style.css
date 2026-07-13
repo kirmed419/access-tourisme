@@ -591,13 +591,26 @@ body::before {
 
 /* Hébergement */
 .hotel-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
-.hotel-item { display: flex; gap: 1rem; align-items: center; background: var(--cream-100); border-radius: var(--radius); padding: 1rem 1.3rem; }
+.hotel-item { background: var(--cream-100); border-radius: var(--radius); overflow: hidden; }
+.hotel-item__summary { display: flex; gap: 1rem; align-items: center; padding: 1rem 1.3rem; }
 .hotel-item__media { width: 72px; height: 72px; border-radius: var(--radius-sm); flex: none; overflow: hidden; }
 .hotel-item__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .hotel-item__media--pending { display: flex; align-items: center; justify-content: center; color: var(--gold-700); }
 .hotel-item__media--pending svg { width: 1.7em; height: 1.7em; opacity: .55; }
 .hotel-item b { display: block; color: var(--ink); font-size: .98rem; }
 .hotel-item span { font-size: .9rem; color: var(--slate); }
+.hotel-price-details { border-top: 1px solid var(--line); background: var(--white); }
+.hotel-price-details > summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem 1.3rem; list-style: none; cursor: pointer; }
+.hotel-price-details > summary::-webkit-details-marker { display: none; }
+.hotel-price-details > summary::after { content: "+"; flex: none; color: var(--gold-700); font-size: 1.3rem; }
+.hotel-price-details[open] > summary::after { content: "–"; }
+.hotel-price-details > summary:hover { background: var(--gold-050); }
+.hotel-price-details > summary span { color: var(--gold-700); font-weight: 800; white-space: nowrap; }
+.hotel-price-details > summary b { margin-left: auto; font-family: "Fraunces", serif; white-space: nowrap; }
+.hotel-pricing-groups { display: grid; gap: 1rem; padding: 0 1.3rem 1.3rem; }
+.hotel-price-group { padding-top: .2rem; }
+.hotel-price-group > h3 { font-family: "Manrope", sans-serif; font-size: .92rem; margin-bottom: .15rem; }
+.hotel-price-group__note { margin-bottom: .7rem; font-size: .82rem; }
 
 /* Infos pratiques */
 .practical { background: var(--cream-100); border-radius: var(--radius); padding: 1.6rem; }
@@ -629,20 +642,12 @@ body::before {
 .departure-card__head { display: flex; justify-content: space-between; align-items: flex-start; gap: .75rem; }
 .departure-card h3 { font-family: "Manrope", sans-serif; font-size: .98rem; line-height: 1.4; }
 .status-badge { flex: none; padding: .2rem .55rem; border-radius: 999px; background: #F5DEDA; color: #9B3D33; font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+.status-badge--alert { background: var(--gold-100); color: var(--gold-700); }
 .departure-card__meta { display: flex; flex-wrap: wrap; gap: .25rem .8rem; margin-top: .45rem; color: var(--slate); font-size: .84rem; }
 .departure-card__meta span::before { content: "·"; margin-right: .4rem; color: var(--gold-700); }
 .departure-card__price { display: block; margin-top: .55rem; color: var(--gold-700); font-size: .9rem; }
 
-/* Tableaux tarifaires détaillés */
-.pricing-details__intro { margin: -.35rem 0 1.1rem; font-size: .96rem; }
-.pricing-accordion details { margin-bottom: .75rem; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--white); }
-.pricing-accordion summary { display: flex; align-items: center; gap: .8rem; padding: 1rem 1.1rem; list-style: none; cursor: pointer; }
-.pricing-accordion summary::-webkit-details-marker { display: none; }
-.pricing-accordion summary:hover { background: var(--cream); }
-.pricing-accordion summary::after { content: "+"; margin-left: auto; color: var(--gold-700); font-size: 1.35rem; }
-.pricing-accordion details[open] summary::after { content: "–"; }
-.pricing-accordion summary b { display: block; color: var(--ink); }
-.pricing-accordion summary small { display: block; margin-top: .15rem; color: var(--slate); font-size: .8rem; font-weight: 500; }
+/* Tableaux tarifaires affichés directement dans chaque hôtel */
 .pricing-periods { display: grid; grid-template-columns: 1fr; gap: 1rem; padding: 0 1.1rem 1.1rem; }
 .pricing-period { padding: 1rem; background: var(--cream-100); border-radius: var(--radius-sm); }
 .pricing-period h3 { font-family: "Manrope", sans-serif; font-size: .9rem; }
