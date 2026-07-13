@@ -345,18 +345,39 @@
         '</details>';
       }
 
+      function hotelGalleryHtml(hotel) {
+        var rawImages = hotel.images && hotel.images.length ? hotel.images : (hotel.image ? [hotel.image] : []);
+        var images = rawImages.filter(Boolean).map(function (item, index) {
+          if (typeof item === 'string') {
+            return { src: item, alt: hotel.nom + ' — photo ' + (index + 1) };
+          }
+          return { src: item.src, alt: item.alt || (hotel.nom + ' — photo ' + (index + 1)) };
+        }).filter(function (item) { return item.src; });
+        if (!images.length) return '';
+
+        var layoutCount = Math.min(images.length, 4);
+        return '<div class="hotel-gallery hotel-gallery--' + layoutCount + '" aria-label="Galerie photos — ' + esc(hotel.nom) + '">' +
+          images.map(function (item, index) {
+            return '<button class="hotel-gallery__item" type="button" data-gallery-src="' + esc(item.src) + '" ' +
+              'data-gallery-alt="' + esc(item.alt) + '" aria-label="Agrandir la photo ' + (index + 1) + ' sur ' + images.length + '">' +
+                '<img src="' + esc(item.src) + '" alt="' + esc(item.alt) + '" loading="lazy" decoding="async"' + IMG_FALLBACK + '>' +
+                (index === 0 && images.length > 1 ? '<span class="hotel-gallery__badge">' + images.length + ' photos</span>' : '') +
+                '<span class="hotel-gallery__zoom" aria-hidden="true">↗</span>' +
+              '</button>';
+          }).join('') +
+        '</div>';
+      }
+
       hotels =
         '<section class="offer-section" data-aos="fade-up">' +
           '<h2>Hébergement</h2>' +
           '<ul class="hotel-list">' +
             o.hotels.map(function (h, hotelIndex) {
               var stars = h.etoiles ? ' ' + Array(h.etoiles + 1).join('★') : '';
-              // Tant que la photo de l'hôtel n'est pas fournie (champ "image"),
-              // on affiche un emplacement réservé (skeleton) à sa place.
-              var media = h.image
-                ? '<div class="hotel-item__media"><img src="' + h.image + '" alt="' + esc(h.nom) + '" loading="lazy" decoding="async"></div>'
-                : '<div class="hotel-item__media hotel-item__media--pending skel" title="Photo à venir">' + icon('hotel') + '</div>';
+              var gallery = hotelGalleryHtml(h);
+              var media = gallery ? '' : '<div class="hotel-item__media hotel-item__media--pending skel" title="Photo à venir">' + icon('hotel') + '</div>';
               return '<li class="hotel-item">' +
+                gallery +
                 '<div class="hotel-item__summary">' + media +
                   '<div><b>' + esc(h.nom) + stars + '</b>' +
                   '<span>' + esc(h.ville) + (h.formule ? ' · ' + esc(h.formule) : '') + '</span></div>' +
@@ -485,6 +506,64 @@
         '<div class="sticky-bar__price"><small>À partir de</small><b>' + fmtPrice(o.prix) + '</b></div>' +
         '<a class="btn btn-gold" href="' + reserveUrl + '">Réserver</a>' +
       '</div>';
+
+    initHotelGalleries(host);
+  }
+
+  /* ======================= GALERIES D'HÔTELS ======================= */
+  function initHotelGalleries(host) {
+    if (!host || !host.querySelector('.hotel-gallery')) return;
+
+    var dialog = document.getElementById('hotel-gallery-dialog');
+    if (!dialog) {
+      dialog = document.createElement('dialog');
+      dialog.id = 'hotel-gallery-dialog';
+      dialog.className = 'hotel-gallery-dialog';
+      dialog.setAttribute('aria-label', 'Photo de l\'hôtel en grand');
+      dialog.innerHTML =
+        '<button class="hotel-gallery-dialog__close" type="button" aria-label="Fermer">×</button>' +
+        '<button class="hotel-gallery-dialog__nav hotel-gallery-dialog__nav--prev" type="button" aria-label="Photo précédente">‹</button>' +
+        '<figure><img src="" alt=""><figcaption></figcaption></figure>' +
+        '<button class="hotel-gallery-dialog__nav hotel-gallery-dialog__nav--next" type="button" aria-label="Photo suivante">›</button>';
+      document.body.appendChild(dialog);
+
+      function showPhoto(index) {
+        var images = dialog._hotelImages || [];
+        if (!images.length) return;
+        dialog._hotelIndex = (index + images.length) % images.length;
+        var current = images[dialog._hotelIndex];
+        var image = dialog.querySelector('img');
+        image.src = current.src;
+        image.alt = current.alt;
+        dialog.querySelector('figcaption').textContent = current.alt + ' · ' + (dialog._hotelIndex + 1) + '/' + images.length;
+        dialog.querySelectorAll('.hotel-gallery-dialog__nav').forEach(function (button) {
+          button.hidden = images.length < 2;
+        });
+      }
+
+      dialog._showHotelPhoto = showPhoto;
+      dialog.addEventListener('click', function (event) {
+        if (event.target === dialog || event.target.closest('.hotel-gallery-dialog__close')) dialog.close();
+        else if (event.target.closest('.hotel-gallery-dialog__nav--prev')) showPhoto(dialog._hotelIndex - 1);
+        else if (event.target.closest('.hotel-gallery-dialog__nav--next')) showPhoto(dialog._hotelIndex + 1);
+      });
+      dialog.addEventListener('keydown', function (event) {
+        if (event.key === 'ArrowLeft') showPhoto(dialog._hotelIndex - 1);
+        else if (event.key === 'ArrowRight') showPhoto(dialog._hotelIndex + 1);
+      });
+    }
+
+    host.addEventListener('click', function (event) {
+      var trigger = event.target.closest('.hotel-gallery__item');
+      if (!trigger) return;
+      var items = Array.prototype.slice.call(trigger.closest('.hotel-gallery').querySelectorAll('.hotel-gallery__item'));
+      dialog._hotelImages = items.map(function (item) {
+        return { src: item.getAttribute('data-gallery-src'), alt: item.getAttribute('data-gallery-alt') };
+      });
+      dialog._showHotelPhoto(items.indexOf(trigger));
+      if (typeof dialog.showModal === 'function') dialog.showModal();
+      else dialog.setAttribute('open', '');
+    });
   }
 
   /* ===================== PAGE RÉSERVATION ===================== */

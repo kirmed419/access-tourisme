@@ -113,6 +113,8 @@ Aucune configuration de serveur ni de base de données n'est nécessaire.
 
 - **[docs/JOURNAL.md](docs/JOURNAL.md)** — journal de tout ce qui a été fait sur le site.
 - **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** — comment le code fonctionne, fichier par fichier.
+- **[docs/HOTEL_IMAGE_PROMPT.md](docs/HOTEL_IMAGE_PROMPT.md)** — prompt réutilisable pour rechercher, optimiser et intégrer des photos d’hôtels sans alourdir le site.
+- **[docs/PHOTO_SOURCES.md](docs/PHOTO_SOURCES.md)** — provenance des photos utilisées dans les galeries d’hôtels.
 
 ---
 
@@ -150,6 +152,10 @@ acess/
 - Apparitions au défilement : bibliothèque **AOS** (via CDN).
 
 ## 📷 Crédits photos
+
+Les sources détaillées des nouvelles galeries d’hôtels figurent dans
+**[docs/PHOTO_SOURCES.md](docs/PHOTO_SOURCES.md)**.
+
 - `destinations/djerba.jpg` — « Houmt Souk » par Philippe Heckel, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Houmt_Souk-02-kleche.jpg), licence CC BY 2.0.
 - `destinations/azerbaidjan.jpg` — « Baku panorama » par Çələbi07, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Baku_panorama114.jpg), licence CC BY-SA 4.0.
 - `destinations/tunisie.jpg` — « Port El Kantaoui Marina, Sousse » par Tony Hisgett, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Port_El_Kantaoui_Marina,_Sousse.jpg), licence CC BY 2.0.

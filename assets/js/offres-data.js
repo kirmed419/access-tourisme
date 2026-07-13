@@ -30,11 +30,12 @@
      pricingGroups: tableaux tarifaires détaillés par hôtel / période (optionnel)
      departures: départs détaillés, avec date, statut, hôtel, compagnie ou prix
                  selon l'offre (optionnel)
-     hotels:     liste des hébergements, { nom, ville, etoiles, formule, image }
+     hotels:     liste des hébergements, { nom, ville, etoiles, formule, images }
                  ex: [{ nom: 'Dar Djerba', ville: 'Djerba',
                         etoiles: 4, formule: 'Pension complète' }]
-                 "image" est optionnel : tant qu'il n'est pas renseigné, un
-                 emplacement réservé (skeleton) s'affiche à la place de la photo.
+                 "images" est une liste optionnelle de photos. Le champ "image"
+                 reste accepté pour une seule photo. Sans photo, un emplacement
+                 réservé (skeleton) s'affiche à la place de la galerie.
      voyageurs:  type de séjour (ex: 'Groupe accompagné', 'Séjour individuel')
      resume:     phrase courte (carte de présentation)
      description:paragraphe d'introduction (page de l'offre)
@@ -214,16 +215,36 @@ const OFFRES = [
       }
     ],
     hotels: [
-      { nom: 'Tree House', ville: 'Sousse', etoiles: 3, formule: 'Demi-pension' },
-      { nom: 'Sol Palmeras', ville: 'Sousse', etoiles: 3, formule: 'Demi-pension (départs 1–2) · Tout compris (3–9)' },
-      { nom: 'El Mouradi Club Selima', ville: 'Sousse', etoiles: 3, formule: 'Tout compris', image: 'assets/img/hotels/el-mouradi-club-selima.jpg' },
-      { nom: 'Marabout', ville: 'Sousse', etoiles: 3, formule: 'Tout compris', image: 'assets/img/hotels/marabout.jpg' },
-      { nom: 'Hannibal Palace', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium' },
-      { nom: 'Orient Palace', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension (départs 1–2) · Tout compris (3–9)' },
-      { nom: 'El Mouradi Club Kantaoui', ville: 'Port El Kantaoui', etoiles: 4, formule: 'Tout compris' },
-      { nom: 'Kanta Resort', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium' },
-      { nom: 'Golf Residence', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium' },
-      { nom: 'El Mouradi Palm Marina', ville: 'Port El Kantaoui', etoiles: 5, formule: 'Tout compris', image: 'assets/img/hotels/el-mouradi-palm-marina.jpg' }
+      { nom: 'Tree House', ville: 'Sousse', etoiles: 3, formule: 'Demi-pension', images: [
+        'assets/img/hotels/tree-house-1.jpg', 'assets/img/hotels/tree-house-2.jpg', 'assets/img/hotels/tree-house-3.jpg'
+      ] },
+      { nom: 'Sol Palmeras', ville: 'Sousse', etoiles: 3, formule: 'Demi-pension (départs 1–2) · Tout compris (3–9)', images: [
+        'assets/img/hotels/sol-palmeras-1.jpg', 'assets/img/hotels/sol-palmeras-2.jpg'
+      ] },
+      { nom: 'El Mouradi Club Selima', ville: 'Sousse', etoiles: 3, formule: 'Tout compris', images: [
+        'assets/img/hotels/el-mouradi-club-selima.jpg', 'assets/img/hotels/el-mouradi-club-selima-2.jpg', 'assets/img/hotels/el-mouradi-club-selima-3.jpg'
+      ] },
+      { nom: 'Marabout', ville: 'Sousse', etoiles: 3, formule: 'Tout compris', images: [
+        'assets/img/hotels/marabout.jpg', 'assets/img/hotels/marabout-2.jpg', 'assets/img/hotels/marabout-3.jpg', 'assets/img/hotels/marabout-4.jpg'
+      ] },
+      { nom: 'Hannibal Palace', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium', images: [
+        'assets/img/hotels/hannibal-palace.jpg'
+      ] },
+      { nom: 'Orient Palace', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension (départs 1–2) · Tout compris (3–9)', images: [
+        'assets/img/hotels/orient-palace.jpg'
+      ] },
+      { nom: 'El Mouradi Club Kantaoui', ville: 'Port El Kantaoui', etoiles: 4, formule: 'Tout compris', images: [
+        'assets/img/hotels/el-mouradi-club-kantaoui-1.jpg', 'assets/img/hotels/el-mouradi-club-kantaoui-2.jpg'
+      ] },
+      { nom: 'Kanta Resort', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium', images: [
+        'assets/img/hotels/kanta-resort-1.jpg', 'assets/img/hotels/kanta-resort-2.jpg', 'assets/img/hotels/kanta-resort-3.jpg'
+      ] },
+      { nom: 'Golf Residence', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium', images: [
+        'assets/img/hotels/golf-residence-1.jpg', 'assets/img/hotels/golf-residence-2.jpg'
+      ] },
+      { nom: 'El Mouradi Palm Marina', ville: 'Port El Kantaoui', etoiles: 5, formule: 'Tout compris', images: [
+        'assets/img/hotels/el-mouradi-palm-marina.jpg', 'assets/img/hotels/el-mouradi-palm-marina-2.jpg'
+      ] }
     ],
     voyageurs: 'Voyage organisé en bus',
     resume: 'Sept départs d’été encore programmés vers Sousse en bus climatisé, avec dix hôtels de 3 à 5 étoiles selon votre budget.',
@@ -403,10 +424,18 @@ const OFFRES = [
     hotels: [
       { nom: 'Houria Palace', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension' },
       { nom: 'Soviva', ville: 'Sousse', etoiles: 3, formule: 'All Inclusive Soft' },
-      { nom: 'Golf Residence', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension' },
-      { nom: 'Orient Palace', ville: 'Sousse', etoiles: 4, formule: 'All Inclusive Soft' },
-      { nom: 'El Mouradi Club Selima', ville: 'Sousse', etoiles: 3, formule: 'All Inclusive Soft', image: 'assets/img/hotels/el-mouradi-club-selima.jpg' },
-      { nom: 'Kanta', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension' },
+      { nom: 'Golf Residence', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension', images: [
+        'assets/img/hotels/golf-residence-1.jpg', 'assets/img/hotels/golf-residence-2.jpg'
+      ] },
+      { nom: 'Orient Palace', ville: 'Sousse', etoiles: 4, formule: 'All Inclusive Soft', images: [
+        'assets/img/hotels/orient-palace.jpg'
+      ] },
+      { nom: 'El Mouradi Club Selima', ville: 'Sousse', etoiles: 3, formule: 'All Inclusive Soft', images: [
+        'assets/img/hotels/el-mouradi-club-selima.jpg', 'assets/img/hotels/el-mouradi-club-selima-2.jpg', 'assets/img/hotels/el-mouradi-club-selima-3.jpg'
+      ] },
+      { nom: 'Kanta', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension', images: [
+        'assets/img/hotels/kanta-resort-1.jpg', 'assets/img/hotels/kanta-resort-2.jpg', 'assets/img/hotels/kanta-resort-3.jpg'
+      ] },
       { nom: 'Riviera', ville: 'Sousse', etoiles: 4, formule: 'All Inclusive Soft' }
     ],
     voyageurs: 'Séjour en avion',
@@ -448,7 +477,9 @@ const OFFRES = [
         { label: 'Par personne', prix: 89990 }, { label: 'Deux personnes', prix: 179990 }
       ] }]
     }],
-    hotels: [{ nom: 'Riadh Palms Resort & Spa', ville: 'Sousse', etoiles: 4, formule: 'All Inclusive Soft' }],
+    hotels: [{ nom: 'Riadh Palms Resort & Spa', ville: 'Sousse', etoiles: 4, formule: 'All Inclusive Soft', images: [
+      'assets/img/hotels/riadh-palms-instagram.jpg'
+    ] }],
     voyageurs: 'Séjour sans transport',
     resume: 'Offre limitée au Riadh Palms 4★ de Sousse, en All Inclusive Soft, du 25 au 31 juillet.',
     description: 'Une offre hôtelière limitée au Riadh Palms Resort & Spa 4★ à Sousse, en formule All Inclusive Soft. Le prix publié est calculé par personne en chambre double et le transport n’est pas compris.',
