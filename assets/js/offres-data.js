@@ -323,7 +323,9 @@ const OFFRES = [
       }
     ],
     hotels: [
-      { nom: 'Dar Djerba', ville: 'Djerba', etoiles: 4, formule: 'Pension complète' }
+      { nom: 'Dar Djerba', ville: 'Djerba', etoiles: 4, formule: 'Pension complète', images: [
+        'assets/img/hotels/dar-djerba-1.jpg'
+      ] }
     ],
     voyageurs: 'Voyage organisé en bus',
     resume: 'L’île de Djerba en pension complète à l’hôtel Dar Djerba 4★, avec transport en autocar touristique.',
@@ -422,8 +424,12 @@ const OFFRES = [
       }
     ],
     hotels: [
-      { nom: 'Houria Palace', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension' },
-      { nom: 'Soviva', ville: 'Sousse', etoiles: 3, formule: 'All Inclusive Soft' },
+      { nom: 'Houria Palace', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension', images: [
+        'assets/img/hotels/houria-palace-1.jpg'
+      ] },
+      { nom: 'Soviva', ville: 'Sousse', etoiles: 3, formule: 'All Inclusive Soft', images: [
+        'assets/img/hotels/soviva-1.jpg'
+      ] },
       { nom: 'Golf Residence', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension', images: [
         'assets/img/hotels/golf-residence-1.jpg', 'assets/img/hotels/golf-residence-2.jpg'
       ] },
@@ -436,7 +442,9 @@ const OFFRES = [
       { nom: 'Kanta', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension', images: [
         'assets/img/hotels/kanta-resort-1.jpg', 'assets/img/hotels/kanta-resort-2.jpg', 'assets/img/hotels/kanta-resort-3.jpg'
       ] },
-      { nom: 'Riviera', ville: 'Sousse', etoiles: 4, formule: 'All Inclusive Soft' }
+      { nom: 'Riviera', ville: 'Sousse', etoiles: 4, formule: 'All Inclusive Soft', images: [
+        'assets/img/hotels/riviera-1.jpg'
+      ] }
     ],
     voyageurs: 'Séjour en avion',
     resume: 'Une semaine à Sousse par avion avec sept hôtels de 3 à 4 étoiles et des tarifs détaillés par hôtel.',
@@ -507,8 +515,12 @@ const OFFRES = [
       { label: 'Prix par personne, à partir de', prix: 217000 }
     ],
     hotels: [
-      { nom: 'Parkside Hotel', ville: 'Bakou', etoiles: 4, formule: 'Petit-déjeuner inclus' },
-      { nom: 'Karvansaray Spa Hotel', ville: 'Gabala', etoiles: 4, formule: 'Petit-déjeuner inclus' }
+      { nom: 'Parkside Hotel', ville: 'Bakou', etoiles: 4, formule: 'Petit-déjeuner inclus', images: [
+        'assets/img/hotels/parkside-baku-1.jpg'
+      ] },
+      { nom: 'Karvansaray Spa Hotel', ville: 'Gabala', etoiles: 4, formule: 'Petit-déjeuner inclus', images: [
+        'assets/img/hotels/karvansaray-gabala-1.jpg'
+      ] }
     ],
     voyageurs: 'Circuit organisé',
     resume: 'Circuit entre Bakou la futuriste et les montagnes de Gabala, visa électronique et guide francophone inclus.',
@@ -567,9 +579,15 @@ const OFFRES = [
       { date: '31 août → 11 septembre 2026', duree: '11 jours / 9 nuits', hotel: 'The Riyaz Lavanya 5★', compagnie: 'Qatar Airways', prix: 369000 }
     ],
     hotels: [
-      { nom: 'Wyndham Suites KLCC', ville: 'Kuala Lumpur', etoiles: 5, formule: 'Petit-déjeuner inclus' },
-      { nom: 'The Riyaz Lavanya', ville: 'Langkawi', etoiles: 5, formule: 'Petit-déjeuner inclus (selon le départ)' },
-      { nom: 'Pelangi Beach Resort', ville: 'Langkawi', etoiles: 5, formule: 'Petit-déjeuner inclus (selon le départ)' }
+      { nom: 'Wyndham Suites KLCC', ville: 'Kuala Lumpur', etoiles: 5, formule: 'Petit-déjeuner inclus', images: [
+        'assets/img/hotels/wyndham-suites-klcc-1.jpg'
+      ] },
+      { nom: 'The Riyaz Lavanya', ville: 'Langkawi', etoiles: 5, formule: 'Petit-déjeuner inclus (selon le départ)', images: [
+        'assets/img/hotels/riyaz-lavanya-1.jpg'
+      ] },
+      { nom: 'Pelangi Beach Resort', ville: 'Langkawi', etoiles: 5, formule: 'Petit-déjeuner inclus (selon le départ)', images: [
+        'assets/img/hotels/pelangi-beach-1.jpg'
+      ] }
     ],
     voyageurs: 'Séjour VIP en hôtels 5★',
     resume: 'La ville futuriste de Kuala Lumpur et les plages paradisiaques de Langkawi, en hôtels 5 étoiles de luxe.',
@@ -691,7 +709,9 @@ const OFFRES = [
         ] }
       ]
     }],
-    hotels: [{ nom: 'Hotel Martinez Istanbul', ville: 'Istanbul centre', etoiles: 4, formule: 'Petit-déjeuner buffet inclus' }],
+    hotels: [{ nom: 'Hotel Martinez Istanbul', ville: 'Istanbul centre', etoiles: 4, formule: 'Petit-déjeuner buffet inclus', images: [
+      'assets/img/hotels/martinenz-istanbul-1.jpg'
+    ] }],
     voyageurs: 'Voyage organisé',
     resume: 'Istanbul en 8 jours avec Turkish Airlines, hôtel 4★ au centre et plus de 21 excursions incluses.',
     description: 'L’un des programmes phares de l’été 2026 à Istanbul : sept nuits à l’Hotel Martinez 4★ au centre-ville, vols Turkish Airlines et un programme de plus de 21 excursions. L’agence offre également Maşukiye, Sapanca et une expérience rafting avec petit-déjeuner buffet.',
@@ -806,13 +826,27 @@ const OFFRES = [
       { date: '12 → 21 septembre 2026' }
     ],
     hotels: [
-      { nom: 'Hollywood Aquapark', ville: 'Sharm El Sheikh', etoiles: 4, formule: 'Au choix' },
-      { nom: 'DoubleTree by Hilton', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix' },
-      { nom: 'Magic Life Redsina', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix' },
-      { nom: 'Pickalbatros Luxury', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix' },
-      { nom: 'Pickalbatros Laguna Vista', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix' },
-      { nom: 'Pickalbatros Royal Moderna', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix' },
-      { nom: 'Hyatt Regency Cairo', ville: 'Le Caire', etoiles: 5, formule: 'Petit-déjeuner inclus' }
+      { nom: 'Hollywood Aquapark', ville: 'Sharm El Sheikh', etoiles: 4, formule: 'Au choix', images: [
+        'assets/img/hotels/hollywood-aquapark-1.jpg'
+      ] },
+      { nom: 'DoubleTree by Hilton', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix', images: [
+        'assets/img/hotels/doubletree-sharm-1.jpg'
+      ] },
+      { nom: 'Magic Life Redsina', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix', images: [
+        'assets/img/hotels/magic-life-redsina-1.jpg'
+      ] },
+      { nom: 'Pickalbatros Luxury', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix', images: [
+        'assets/img/hotels/pickalbatros-luxury-1.jpg'
+      ] },
+      { nom: 'Pickalbatros Laguna Vista', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix', images: [
+        'assets/img/hotels/pickalbatros-laguna-vista-1.jpg'
+      ] },
+      { nom: 'Pickalbatros Royal Moderna', ville: 'Sharm El Sheikh', etoiles: 5, formule: 'Au choix', images: [
+        'assets/img/hotels/pickalbatros-royal-moderna-1.jpg'
+      ] },
+      { nom: 'Hyatt Regency Cairo', ville: 'Le Caire', etoiles: 5, formule: 'Petit-déjeuner inclus', images: [
+        'assets/img/hotels/hyatt-regency-cairo-1.jpg'
+      ] }
     ],
     voyageurs: 'Groupe accompagné',
     resume: 'Les plages de la mer Rouge et les trésors du Caire réunis dans un seul voyage inoubliable.',
