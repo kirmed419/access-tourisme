@@ -571,6 +571,8 @@
     var form = document.getElementById('reservation-form');
     if (!form) return;
     var select = document.getElementById('offre-select');
+    var hotelField = document.getElementById('hotel-field');
+    var hotelSelect = document.getElementById('hotel-select');
     var summary = document.getElementById('offre-summary');
     var preId = param('offre');
 
@@ -582,8 +584,28 @@
     });
     select.innerHTML = opts;
 
+    function hotelLabel(hotel) {
+      var stars = hotel.etoiles ? ' ' + Array(hotel.etoiles + 1).join('★') : '';
+      return hotel.nom + stars + (hotel.ville ? ' — ' + hotel.ville : '');
+    }
+
+    function updateHotelOptions(o) {
+      var hotels = o && o.hotels ? o.hotels : [];
+      var hasChoice = hotels.length > 1;
+      hotelField.hidden = !hasChoice;
+      hotelSelect.disabled = !hasChoice;
+      hotelSelect.required = hasChoice;
+      hotelSelect.innerHTML = hasChoice
+        ? '<option value="" selected disabled>Choisissez votre hôtel</option>' + hotels.map(function (hotel) {
+            var label = hotelLabel(hotel);
+            return '<option value="' + esc(label) + '">' + esc(label) + '</option>';
+          }).join('')
+        : '';
+    }
+
     function updateSummary() {
       var o = getOffre(select.value);
+      updateHotelOptions(o);
       if (!o) { summary.innerHTML = '<div class="form-note">' + icon('info') + '<span>Choisissez une destination ci-dessus, ou laissez-nous vous conseiller : décrivez votre envie dans le message.</span></div>'; return; }
       summary.innerHTML =
         '<div class="offer-card" style="box-shadow:none">' +
@@ -607,6 +629,7 @@
         nom: form.nom.value.trim(),
         tel: form.telephone.value.trim(),
         agence: form.agence.value,
+        hotel: hotelSelect.disabled ? '' : hotelSelect.value,
         periode: form.periode.value,
         voyageurs: form.voyageurs.value,
         message: form.message.value.trim()
@@ -619,6 +642,7 @@
         '• Nom : ' + data.nom + '\n' +
         '• Téléphone : ' + data.tel + '\n' +
         '• Agence de réservation : *' + data.agence + '*\n' +
+        (data.hotel ? '• Hôtel choisi : *' + data.hotel + '*\n' : '') +
         '• Nombre de voyageurs : ' + data.voyageurs + '\n' +
         '• Période souhaitée : ' + data.periode + '\n' +
         (data.message ? '• Message : ' + data.message + '\n' : '') +
