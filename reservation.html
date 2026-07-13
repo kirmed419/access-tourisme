@@ -49,6 +49,14 @@
                   <input type="tel" id="telephone" name="telephone" autocomplete="tel" placeholder="Ex : 0550 12 34 56" required>
                 </div>
                 <div class="field field--full">
+                  <label for="agence">Agence de réservation <span class="req">*</span></label>
+                  <select id="agence" name="agence" required>
+                    <option value="" selected disabled>Choisissez votre agence</option>
+                    <option value="Agence de Birkhadem">Agence de Birkhadem</option>
+                    <option value="Agence de Sétif">Agence de Sétif</option>
+                  </select>
+                </div>
+                <div class="field field--full">
                   <label for="offre-select">Destination souhaitée</label>
                   <select id="offre-select" name="offre"></select>
                 </div>
@@ -116,7 +124,7 @@
 
   <script src="assets/js/config.js?v=20260713c" defer></script>
   <script src="assets/js/offres-data.js?v=20260713c" defer></script>
-  <script src="assets/js/site.js?v=20260713c" defer></script>
+  <script src="assets/js/site.js?v=20260713d" defer></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
   <script src="assets/js/motion.js" defer></script>
 </body>

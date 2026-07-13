@@ -606,6 +606,7 @@
       var data = {
         nom: form.nom.value.trim(),
         tel: form.telephone.value.trim(),
+        agence: form.agence.value,
         periode: form.periode.value,
         voyageurs: form.voyageurs.value,
         message: form.message.value.trim()
@@ -617,6 +618,7 @@
         'Je souhaite réserver le voyage : *' + voyage + '*\n\n' +
         '• Nom : ' + data.nom + '\n' +
         '• Téléphone : ' + data.tel + '\n' +
+        '• Agence de réservation : *' + data.agence + '*\n' +
         '• Nombre de voyageurs : ' + data.voyageurs + '\n' +
         '• Période souhaitée : ' + data.periode + '\n' +
         (data.message ? '• Message : ' + data.message + '\n' : '') +
