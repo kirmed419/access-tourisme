@@ -571,10 +571,12 @@
     var form = document.getElementById('reservation-form');
     if (!form) return;
     var select = document.getElementById('offre-select');
+    var offerField = document.getElementById('offre-field');
     var hotelField = document.getElementById('hotel-field');
     var hotelSelect = document.getElementById('hotel-select');
     var summary = document.getElementById('offre-summary');
     var preId = param('offre');
+    var preselectedOffer = getOffre(preId);
 
     // Options du menu déroulant des offres
     var opts = '<option value="">Je ne sais pas encore — conseillez-moi</option>';
@@ -583,6 +585,8 @@
         esc(o.destination + ' (' + o.pays + ')') + '</option>';
     });
     select.innerHTML = opts;
+    offerField.hidden = Boolean(preselectedOffer);
+    select.disabled = Boolean(preselectedOffer);
 
     function hotelLabel(hotel) {
       var stars = hotel.etoiles ? ' ' + Array(hotel.etoiles + 1).join('★') : '';
