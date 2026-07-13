@@ -44,6 +44,15 @@
   function fmtPrice(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' DA'; }
   function waNumber() { return String(CFG.whatsapp || '').replace(/[\s+]/g, ''); }
   function waLink(msg) { return 'https://wa.me/' + waNumber() + '?text=' + encodeURIComponent(msg); }
+  function waLinkFor(number, msg) { return 'https://wa.me/' + String(number || '').replace(/[\s+]/g, '') + '?text=' + encodeURIComponent(msg); }
+  function phoneHref(number) { return 'tel:+' + String(number || '').replace(/\D/g, ''); }
+  function agencies() {
+    if (CFG.agences && CFG.agences.length) return CFG.agences;
+    return [{
+      nom: 'Agence Access Tourisme', adresse: CFG.adresse, ville: CFG.ville,
+      telephones: [{ affiche: CFG.telephone, international: waNumber() }]
+    }];
+  }
   function param(name) { return new URLSearchParams(location.search).get(name); }
   function getOffre(id) { return OFFRES.find(function (o) { return o.id === id; }); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -123,6 +132,13 @@
     var destLinks = CATEGORIES.map(function (c) {
       return '<li><a href="offres.html?cat=' + encodeURIComponent(c) + '">' + esc(c) + '</a></li>';
     }).join('');
+    var footerAgencies = agencies().map(function (agency) {
+      var phones = (agency.telephones || []).map(function (phone) {
+        return '<a href="' + phoneHref(phone.international) + '">' + esc(phone.affiche) + '</a>';
+      }).join('<span class="phone-separator"> · </span>');
+      return '<li class="footer-agency">' + icon('pin') + '<span><b>' + esc(agency.nom) + '</b>' +
+        esc(agency.adresse) + '<br>' + esc(agency.ville) + '<br>' + phones + '</span></li>';
+    }).join('');
 
     host.className = 'site-footer';
     host.innerHTML =
@@ -147,9 +163,8 @@
         '<div class="footer-col">' +
           '<h4>Nous contacter</h4>' +
           '<ul class="footer-contact">' +
-            '<li>' + icon('pin') + '<span>' + esc(CFG.adresse) + '<br>' + esc(CFG.ville) + '</span></li>' +
-            '<li>' + icon('phone') + '<a href="tel:' + esc(String(CFG.telephone).replace(/\s/g, '')) + '">' + esc(CFG.telephone) + '</a></li>' +
-            '<li>' + icon('wa') + '<a href="' + waLink('Bonjour Access Tourisme, je souhaite des informations.') + '" target="_blank" rel="noopener">WhatsApp</a></li>' +
+            footerAgencies +
+            '<li>' + icon('wa') + '<a href="' + waLink('Bonjour Access Tourisme, je souhaite des informations.') + '" target="_blank" rel="noopener">Réservations WhatsApp · ' + esc(CFG.telephone) + '</a></li>' +
             '<li>' + icon('mail') + '<a href="mailto:' + esc(CFG.email) + '">' + esc(CFG.email) + '</a></li>' +
           '</ul>' +
         '</div>' +
@@ -326,6 +341,56 @@
         '</section>';
     }
 
+    var departures = '';
+    if (o.departures && o.departures.length) {
+      departures =
+        '<section class="offer-section departures-section" data-aos="fade-up">' +
+          '<h2>Dates de départ</h2>' +
+          '<div class="departures-grid">' +
+            o.departures.map(function (d) {
+              var details = [d.duree, d.hotel, d.compagnie].filter(Boolean).map(function (item) {
+                return '<span>' + esc(item) + '</span>';
+              }).join('');
+              return '<article class="departure-card' + (d.statut ? ' departure-card--full' : '') + '">' +
+                '<div class="departure-card__head"><h3>' + esc(d.date) + '</h3>' +
+                  (d.statut ? '<span class="status-badge">' + esc(d.statut) + '</span>' : '') + '</div>' +
+                (details ? '<div class="departure-card__meta">' + details + '</div>' : '') +
+                (d.prix ? '<b class="departure-card__price">À partir de ' + fmtPrice(d.prix) + '</b>' : '') +
+              '</article>';
+            }).join('') +
+          '</div>' +
+        '</section>';
+    }
+
+    var detailedPricing = '';
+    if (o.pricingGroups && o.pricingGroups.length) {
+      detailedPricing =
+        '<section class="offer-section pricing-details" data-aos="fade-up">' +
+          '<h2>Tarifs détaillés</h2>' +
+          '<p class="pricing-details__intro">Choisissez un hôtel ou une période pour voir les tarifs publiés.</p>' +
+          '<div class="pricing-accordion">' +
+            o.pricingGroups.map(function (group, idx) {
+              return '<details' + (idx === 0 ? ' open' : '') + '>' +
+                '<summary><span><b>' + esc(group.title) + '</b>' +
+                  (group.note ? '<small>' + esc(group.note) + '</small>' : '') + '</span></summary>' +
+                '<div class="pricing-periods">' +
+                  (group.periods || []).map(function (period) {
+                    return '<div class="pricing-period">' +
+                      '<h3>' + esc(period.label) + '</h3>' +
+                      (period.note ? '<p>' + esc(period.note) + '</p>' : '') +
+                      '<ul>' + (period.tarifs || []).map(function (tarif) {
+                        return '<li><span>' + esc(tarif.label) + '</span><b>' +
+                          (tarif.prix != null ? fmtPrice(tarif.prix) : esc(tarif.texte)) + '</b></li>';
+                      }).join('') + '</ul>' +
+                    '</div>';
+                  }).join('') +
+                '</div>' +
+              '</details>';
+            }).join('') +
+          '</div>' +
+        '</section>';
+    }
+
     var reserveUrl = 'reservation.html?offre=' + o.id;
     var quickMsg = 'Bonjour Access Tourisme, je suis intéressé(e) par le voyage : ' + o.destination + '. Pouvez-vous me donner plus d\'informations ?';
 
@@ -350,6 +415,8 @@
               '<p>' + esc(o.description) + '</p>' +
             '</section>' +
 
+            departures +
+
             '<section class="offer-section" data-aos="fade-up">' +
               '<div class="incl-grid">' +
                 '<div><h3>Ce qui est inclus</h3><ul class="incl-list incl-list--yes">' + incl + '</ul></div>' +
@@ -358,6 +425,8 @@
             '</section>' +
 
             hotels +
+
+            detailedPricing +
 
             program +
 
@@ -459,10 +528,20 @@
   function renderContact() {
     var info = document.getElementById('contact-info');
     if (info) {
-      info.innerHTML =
-        '<li><span class="ci-icon">' + icon('pin') + '</span><div><b>Adresse</b><span>' + esc(CFG.adresse) + ', ' + esc(CFG.ville) + '</span></div></li>' +
-        '<li><span class="ci-icon">' + icon('phone') + '</span><div><b>Téléphone</b><a href="tel:' + esc(String(CFG.telephone).replace(/\s/g, '')) + '">' + esc(CFG.telephone) + '</a></div></li>' +
-        '<li><span class="ci-icon">' + icon('wa') + '</span><div><b>WhatsApp</b><a href="' + waLink('Bonjour Access Tourisme, je souhaite des informations.') + '" target="_blank" rel="noopener">Discuter avec nous</a></div></li>' +
+      var agencyItems = agencies().map(function (agency) {
+        var phones = (agency.telephones || []).map(function (phone) {
+          var msg = 'Bonjour Access Tourisme, je souhaite des informations auprès de ' + agency.nom + '.';
+          return '<span class="agency-phone"><a href="' + phoneHref(phone.international) + '">' + esc(phone.affiche) + '</a>' +
+            '<a class="agency-phone__wa" href="' + waLinkFor(phone.international, msg) + '" target="_blank" rel="noopener">WhatsApp</a></span>';
+        }).join('');
+        return '<li class="agency-contact"><span class="ci-icon">' + icon('pin') + '</span><div><b>' + esc(agency.nom) + '</b>' +
+          '<span>' + esc(agency.adresse) + ', ' + esc(agency.ville) + '</span>' +
+          '<div class="agency-phones">' + phones + '</div></div></li>';
+      }).join('');
+      info.innerHTML = agencyItems +
+        '<li><span class="ci-icon">' + icon('wa') + '</span><div><b>Réservations et informations</b>' +
+          '<a href="' + phoneHref(waNumber()) + '">' + esc(CFG.telephone) + '</a><br>' +
+          '<a href="' + waLink('Bonjour Access Tourisme, je souhaite des informations.') + '" target="_blank" rel="noopener">Discuter sur WhatsApp</a></div></li>' +
         '<li><span class="ci-icon">' + icon('mail') + '</span><div><b>E-mail</b><a href="mailto:' + esc(CFG.email) + '">' + esc(CFG.email) + '</a></div></li>' +
         '<li><span class="ci-icon">' + icon('clock') + '</span><div><b>Horaires</b><span>' + esc(CFG.horaires) + '</span></div></li>';
     }
@@ -522,7 +601,20 @@
         '@type': 'PostalAddress',
         streetAddress: CFG.adresse,
         addressLocality: CFG.ville
-      }
+      },
+      department: agencies().map(function (agency) {
+        return {
+          '@type': 'TravelAgency',
+          name: agency.nom,
+          telephone: (agency.telephones || []).map(function (phone) { return '+' + phone.international; }),
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: agency.adresse,
+            addressLocality: agency.ville,
+            addressCountry: 'DZ'
+          }
+        };
+      })
     });
     document.head.appendChild(s);
   }

@@ -27,6 +27,9 @@
                  ex: [{ label: 'Chambre triple', prix: 359000 },
                       { label: 'Chambre double', prix: 369000 }]
                  (mettre une seule ligne si un seul tarif)
+     pricingGroups: tableaux tarifaires détaillés par hôtel / période (optionnel)
+     departures: départs détaillés, avec date, statut, hôtel, compagnie ou prix
+                 selon l'offre (optionnel)
      hotels:     liste des hébergements, { nom, ville, etoiles, formule, image }
                  ex: [{ nom: 'Dar Djerba', ville: 'Djerba',
                         etoiles: 4, formule: 'Pension complète' }]
@@ -52,27 +55,178 @@ const OFFRES = [
     categorie: 'International',
     image: 'assets/img/destinations/tunisie.jpg',
     duree: '7 jours / 6 nuits',
-    depart: '7 départs du 18 juillet au 1er septembre 2026 — au départ d’Alger et de Sétif (arrêts à Bouira, Bordj Bou Arréridj, Constantine, Skikda, Annaba, El Tarf)',
+    depart: '9 départs du 2 juillet au 1er septembre 2026, dont 7 encore programmés à partir du 18 juillet — départs d’Alger et de Sétif, via Bouira, Bordj Bou Arréridj, Constantine, Skikda, Annaba et El Tarf',
     prix: 70000,
     pricing: [
-      { label: 'Adulte (selon hôtel et date), à partir de', prix: 70000 },
-      { label: 'Enfant (âge selon hôtel), à partir de', prix: 45000 },
-      { label: 'Chambre individuelle, à partir de', prix: 95000 }
+      { label: 'Adulte — départs 3 à 9, à partir de', prix: 70000 },
+      { label: 'Enfant — départs 3 à 9, à partir de', prix: 45000 },
+      { label: 'Chambre individuelle — départs 3 à 9, à partir de', prix: 95000 }
+    ],
+    departures: [
+      { date: '2 → 9 juillet 2026', statut: 'Complet' },
+      { date: '10 → 17 juillet 2026', statut: 'Complet' },
+      { date: '18 → 25 juillet 2026' },
+      { date: '26 juillet → 2 août 2026' },
+      { date: '1 → 8 août 2026' },
+      { date: '7 → 14 août 2026' },
+      { date: '13 → 20 août 2026' },
+      { date: '19 → 26 août 2026' },
+      { date: '25 août → 1er septembre 2026' }
+    ],
+    pricingGroups: [
+      {
+        title: 'Tree House Sousse 3★', note: 'Demi-pension · enfant de 6 à 12 ans',
+        periods: [
+          { label: 'Départ 1', note: '2 → 9 juillet · complet', tarifs: [
+            { label: 'Adulte', prix: 46000 }, { label: 'Enfant', prix: 30000 },
+            { label: 'Moins de 6 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 6 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', prix: 63000 }
+          ] },
+          { label: 'Départs 2 à 9', note: 'Demi-pension', tarifs: [
+            { label: 'Adulte', prix: 70000 }, { label: 'Enfant', prix: 45000 },
+            { label: 'Moins de 6 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 6 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', prix: 95000 }
+          ] }
+        ]
+      },
+      {
+        title: 'Sol Palmeras Sousse 3★', note: 'Enfant de 6 à 12 ans',
+        periods: [
+          { label: 'Départs 1 et 2', note: 'Demi-pension · complets', tarifs: [
+            { label: 'Adulte', prix: 50000 }, { label: 'Enfant', prix: 30000 },
+            { label: 'Moins de 6 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 6 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', prix: 65000 }
+          ] },
+          { label: 'Départs 3 à 9', note: 'Tout compris', tarifs: [
+            { label: 'Adulte', prix: 70000 }, { label: 'Enfant', prix: 45000 },
+            { label: 'Moins de 6 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 6 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', prix: 95000 }
+          ] }
+        ]
+      },
+      {
+        title: 'El Mouradi Club Selima 3★', note: 'Tout compris · enfant de 2 à 12 ans',
+        periods: [
+          { label: 'Départs 1 et 2', note: 'Complets', tarifs: [
+            { label: 'Adulte', prix: 82000 }, { label: 'Enfant', prix: 52000 },
+            { label: 'Moins de 2 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 2 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', prix: 125000 }
+          ] },
+          { label: 'Départs 3 à 9', tarifs: [
+            { label: 'Adulte', prix: 92000 }, { label: 'Enfant', prix: 58000 },
+            { label: 'Moins de 2 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 2 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', prix: 130000 }
+          ] }
+        ]
+      },
+      {
+        title: 'Marabout Sousse 3★', note: 'Tout compris · enfant de 6 à 12 ans',
+        periods: [
+          { label: 'Départs 1 à 9', tarifs: [
+            { label: 'Adulte', prix: 115000 }, { label: 'Enfant', prix: 65000 },
+            { label: 'Moins de 6 ans sans siège', texte: 'Gratuit' }, { label: 'Chambre individuelle', prix: 140000 }
+          ] }
+        ]
+      },
+      {
+        title: 'Hannibal Palace Sousse 4★', note: 'Demi-pension · enfant de 3 à 12 ans',
+        periods: [
+          { label: 'Départs 1 et 2', note: 'Complets', tarifs: [
+            { label: 'Adulte', prix: 78000 }, { label: 'Enfant', prix: 43000 },
+            { label: 'Moins de 3 ans sans siège', texte: 'Gratuit' }, { label: 'Chambre individuelle', prix: 100000 }
+          ] },
+          { label: 'Départs 3 à 9', tarifs: [
+            { label: 'Adulte', prix: 90000 }, { label: 'Enfant', prix: 50000 },
+            { label: 'Moins de 3 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 3 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', prix: 120000 }
+          ] }
+        ]
+      },
+      {
+        title: 'Orient Palace Sousse 4★', note: 'Enfant de 6 à 12 ans',
+        periods: [
+          { label: 'Départs 1 et 2', note: 'Demi-pension · complets', tarifs: [
+            { label: 'Adulte', prix: 58000 }, { label: 'Enfant', prix: 34000 },
+            { label: 'Moins de 6 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 6 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', prix: 80000 }
+          ] },
+          { label: 'Départs 3 à 9', note: 'Tout compris', tarifs: [
+            { label: 'Adulte', prix: 100000 }, { label: 'Enfant', prix: 60000 },
+            { label: 'Moins de 6 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 6 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', prix: 120000 }
+          ] }
+        ]
+      },
+      {
+        title: 'El Mouradi Club Kantaoui 4★', note: 'Tout compris · enfant de 2 à 12 ans',
+        periods: [
+          { label: 'Départs 1 et 2', note: 'Complets', tarifs: [
+            { label: 'Adulte', prix: 97000 }, { label: 'Enfant', prix: 53000 },
+            { label: 'Moins de 2 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 2 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', prix: 145000 }
+          ] },
+          { label: 'Départs 3 à 9', tarifs: [
+            { label: 'Adulte', prix: 105000 }, { label: 'Enfant', prix: 58000 },
+            { label: 'Moins de 2 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 2 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', prix: 145000 }
+          ] }
+        ]
+      },
+      {
+        title: 'Kanta Resort Sousse 4★', note: 'Demi-pension · enfant de 4 à 12 ans',
+        periods: [
+          { label: 'Départ 1', note: 'Complet', tarifs: [
+            { label: 'Adulte', prix: 70000 }, { label: 'Enfant', prix: 40000 },
+            { label: 'Moins de 4 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 4 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', texte: 'Non disponible' }
+          ] },
+          { label: 'Départs 2 à 9', tarifs: [
+            { label: 'Adulte', prix: 87000 }, { label: 'Enfant', prix: 50000 },
+            { label: 'Moins de 4 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 4 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', texte: 'Non disponible' }
+          ] }
+        ]
+      },
+      {
+        title: 'Golf Residence Sousse 4★', note: 'Demi-pension · enfant de 6 à 12 ans',
+        periods: [
+          { label: 'Départs 1 à 9', tarifs: [
+            { label: 'Adulte', prix: 90000 }, { label: 'Enfant', prix: 50000 },
+            { label: 'Moins de 6 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 6 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', texte: 'Non disponible' }
+          ] }
+        ]
+      },
+      {
+        title: 'El Mouradi Palm Marina 5★', note: 'Tout compris · enfant de 2 à 12 ans',
+        periods: [
+          { label: 'Départs 1 et 2', note: 'Complets', tarifs: [
+            { label: 'Adulte', prix: 118000 }, { label: 'Enfant', prix: 63000 },
+            { label: 'Moins de 2 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 2 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', prix: 177990 }
+          ] },
+          { label: 'Départs 3 à 9', tarifs: [
+            { label: 'Adulte', prix: 143000 }, { label: 'Enfant', prix: 73000 },
+            { label: 'Moins de 2 ans sans siège', texte: 'Gratuit' }, { label: 'Moins de 2 ans avec siège', prix: 10000 },
+            { label: 'Chambre individuelle', prix: 195000 }
+          ] }
+        ]
+      }
     ],
     hotels: [
       { nom: 'Tree House', ville: 'Sousse', etoiles: 3, formule: 'Demi-pension' },
-      { nom: 'Sol Palmeras', ville: 'Sousse', etoiles: 3, formule: 'Tout compris' },
+      { nom: 'Sol Palmeras', ville: 'Sousse', etoiles: 3, formule: 'Demi-pension (départs 1–2) · Tout compris (3–9)' },
       { nom: 'El Mouradi Club Selima', ville: 'Sousse', etoiles: 3, formule: 'Tout compris', image: 'assets/img/hotels/el-mouradi-club-selima.jpg' },
       { nom: 'Marabout', ville: 'Sousse', etoiles: 3, formule: 'Tout compris', image: 'assets/img/hotels/marabout.jpg' },
       { nom: 'Hannibal Palace', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium' },
-      { nom: 'Orient Palace', ville: 'Sousse', etoiles: 4, formule: 'Tout compris' },
+      { nom: 'Orient Palace', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension (départs 1–2) · Tout compris (3–9)' },
       { nom: 'El Mouradi Club Kantaoui', ville: 'Port El Kantaoui', etoiles: 4, formule: 'Tout compris' },
       { nom: 'Kanta Resort', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium' },
       { nom: 'Golf Residence', ville: 'Sousse', etoiles: 4, formule: 'Demi-pension · emplacement premium' },
       { nom: 'El Mouradi Palm Marina', ville: 'Port El Kantaoui', etoiles: 5, formule: 'Tout compris', image: 'assets/img/hotels/el-mouradi-palm-marina.jpg' }
     ],
     voyageurs: 'Voyage organisé en bus',
-    resume: 'Sept départs d’été vers Sousse en bus climatisé, avec dix hôtels de 3 à 5 étoiles selon votre budget.',
+    resume: 'Sept départs d’été encore programmés vers Sousse en bus climatisé, avec dix hôtels de 3 à 5 étoiles selon votre budget.',
     description: "Un voyage tout confort en bus moderne et climatisé, accompagné par un représentant de l’agence à l’aller comme au retour. Dix hôtels au choix à Sousse et Port El Kantaoui, du 3 étoiles économique au 5 étoiles tout compris, en demi-pension ou en formule tout compris selon l’établissement. Des sorties gratuites sont organisées pour les familles, les enfants et les groupes d’amis, et de nombreuses excursions optionnelles complètent le séjour. Tarifs adulte de 70 000 à 143 000 DA selon l’hôtel et la date.",
     inclus: [
       'Transport aller-retour en bus moderne et climatisé',
@@ -100,12 +254,52 @@ const OFFRES = [
     categorie: 'International',
     image: 'assets/img/destinations/djerba.jpg',
     duree: '7 jours / 6 nuits',
-    depart: '16 départs du 29 juin au 27 septembre 2026 — d’Alger, Bouira, Bordj Bou Arréridj, Sétif et Constantine',
+    depart: '16 départs du 29 juin au 27 septembre 2026 (retour final le 4 octobre) — d’Alger, Bouira, Bordj Bou Arréridj, Sétif et Constantine',
     prix: 64500,
     pricing: [
       { label: 'Chambre triple (par personne), à partir de', prix: 64500 },
       { label: 'Chambre double (par personne), à partir de', prix: 68900 },
       { label: 'Enfant de 2 à 12 ans, à partir de', prix: 42500 }
+    ],
+    pricingGroups: [
+      {
+        title: 'Groupe 1', note: '29 juin → 6 juillet · 5 → 12 juillet',
+        periods: [{ label: 'Tarifs par personne', tarifs: [
+          { label: 'Chambre triple', prix: 73990 }, { label: 'Chambre double', prix: 78500 },
+          { label: '1er et 2e enfant (2 à moins de 12 ans)', prix: 47500 },
+          { label: 'Moins de 6 ans sans siège', texte: 'Gratuit' }
+        ] }]
+      },
+      {
+        title: 'Groupe 2', note: '11 → 18 juillet · 17 → 24 juillet · 23 → 30 juillet',
+        periods: [{ label: 'Tarifs par personne', tarifs: [
+          { label: 'Chambre triple', prix: 82000 }, { label: 'Chambre double', prix: 88000 }, { label: 'Enfant', prix: 52000 }
+        ] }]
+      },
+      {
+        title: 'Groupe 3', note: '29 juillet → 5 août · 4 → 11 août · 10 → 17 août · 16 → 23 août · 22 → 29 août',
+        periods: [{ label: 'Tarifs par personne', tarifs: [
+          { label: 'Chambre triple', prix: 90900 }, { label: 'Chambre double', prix: 97900 }, { label: 'Enfant', prix: 56990 }
+        ] }]
+      },
+      {
+        title: 'Groupe 4', note: '28 août → 4 septembre',
+        periods: [{ label: 'Tarifs par personne', tarifs: [
+          { label: 'Chambre triple', prix: 82000 }, { label: 'Chambre double', prix: 88000 }, { label: 'Enfant', prix: 52000 }
+        ] }]
+      },
+      {
+        title: 'Groupe 5', note: '3 → 10 septembre · 9 → 16 septembre',
+        periods: [{ label: 'Tarifs par personne', tarifs: [
+          { label: 'Chambre triple', prix: 73600 }, { label: 'Chambre double', prix: 78500 }, { label: 'Enfant', prix: 47500 }
+        ] }]
+      },
+      {
+        title: 'Groupe 6', note: '15 → 22 septembre · 21 → 28 septembre · 27 septembre → 4 octobre',
+        periods: [{ label: 'Tarifs par personne', tarifs: [
+          { label: 'Chambre triple', prix: 64500 }, { label: 'Chambre double', prix: 68900 }, { label: 'Enfant', prix: 42500 }
+        ] }]
+      }
     ],
     hotels: [
       { nom: 'Dar Djerba', ville: 'Djerba', etoiles: 4, formule: 'Pension complète' }
@@ -188,7 +382,7 @@ const OFFRES = [
     categorie: 'Asie',
     image: 'assets/img/destinations/malaisie.jpg',
     duree: '11 jours / 9 nuits',
-    depart: '8 départs du 2 au 31 août 2026 (11 à 13 jours selon la date)',
+    depart: '8 départs du 2 au 31 août 2026, avec retours du 13 août au 11 septembre (11 à 13 jours selon la date)',
     prix: 366000,
     pricing: [
       { label: 'Chambre triple (par personne)', prix: 366000 },
@@ -197,6 +391,16 @@ const OFFRES = [
       { label: 'Enfant avec lit', prix: 355000 },
       { label: 'Enfant sans lit', prix: 249000 },
       { label: 'Bébé', prix: 52000 }
+    ],
+    departures: [
+      { date: '2 → 13 août 2026', duree: '12 jours / 10 nuits', hotel: 'The Riyaz Lavanya 5★', compagnie: 'Air Algérie · vol direct', prix: 375000 },
+      { date: '7 → 17 août 2026', duree: '11 jours / 9 nuits', hotel: 'Pelangi Beach Resort 5★', compagnie: 'Air Algérie', prix: 369000 },
+      { date: '12 → 22 août 2026', duree: '11 jours / 9 nuits', hotel: 'Pelangi Beach Resort 5★', compagnie: 'Air Algérie', prix: 369000 },
+      { date: '18 → 28 août 2026', duree: '11 jours / 9 nuits', hotel: 'The Riyaz Lavanya 5★', compagnie: 'Qatar Airways', prix: 369000 },
+      { date: '21 → 31 août 2026', duree: '11 jours / 9 nuits', hotel: 'Pelangi Beach Resort 5★', compagnie: 'Air Algérie', prix: 369000 },
+      { date: '21 → 31 août 2026', duree: '11 jours / 9 nuits', hotel: 'The Riyaz Lavanya 5★', compagnie: 'Qatar Airways', prix: 369000 },
+      { date: '26 août → 7 septembre 2026', duree: '13 jours / 11 nuits', hotel: 'The Riyaz Lavanya 5★', compagnie: 'Air Algérie', prix: 379000 },
+      { date: '31 août → 11 septembre 2026', duree: '11 jours / 9 nuits', hotel: 'The Riyaz Lavanya 5★', compagnie: 'Qatar Airways', prix: 369000 }
     ],
     hotels: [
       { nom: 'Wyndham Suites KLCC', ville: 'Kuala Lumpur', etoiles: 5, formule: 'Petit-déjeuner inclus' },
@@ -247,6 +451,19 @@ const OFFRES = [
       { label: 'DoubleTree by Hilton 5★ (double, juillet)', prix: 295000 },
       { label: 'Magic Life Redsina 5★ (double, juillet)', prix: 335000 },
       { label: 'Magic Life Redsina 5★ (family room, juillet)', prix: 360000 }
+    ],
+    departures: [
+      { date: '27 juillet → 5 août 2026' },
+      { date: '29 juillet → 7 août 2026' },
+      { date: '30 juillet → 8 août 2026' },
+      { date: '9 → 18 août 2026' },
+      { date: '12 → 21 août 2026' },
+      { date: '19 → 28 août 2026' },
+      { date: '24 août → 2 septembre 2026' },
+      { date: '27 août → 5 septembre 2026' },
+      { date: '5 → 14 septembre 2026' },
+      { date: '7 → 16 septembre 2026' },
+      { date: '12 → 21 septembre 2026' }
     ],
     hotels: [
       { nom: 'Hollywood Aquapark', ville: 'Sharm El Sheikh', etoiles: 4, formule: 'Au choix' },

@@ -434,6 +434,9 @@ body::before {
 .footer-col a:hover { color: var(--gold); }
 .footer-contact li { display: flex; gap: .7rem; align-items: flex-start; margin-bottom: .9rem; font-size: .96rem; }
 .footer-contact svg { width: 1.15em; height: 1.15em; flex: none; margin-top: .25em; color: var(--gold); }
+.footer-contact .footer-agency { margin-bottom: 1.2rem; }
+.footer-agency b { display: block; color: #fff; margin-bottom: .15rem; }
+.footer-agency .phone-separator { color: rgba(255,255,255,.4); }
 .footer-social { display: flex; gap: .7rem; margin-top: 1.2rem; }
 .footer-social a {
   width: 42px; height: 42px; border-radius: 10px; display: grid; place-items: center;
@@ -618,6 +621,36 @@ body::before {
 .pricing-list li { display: flex; justify-content: space-between; align-items: baseline; gap: .6rem; margin-bottom: .55rem; font-size: .93rem; color: var(--slate); }
 .pricing-list li:last-child { margin-bottom: 0; }
 .pricing-list b { font-family: "Fraunces", serif; font-weight: 600; color: var(--ink); }
+
+/* Départs publiés dans les annonces de l'agence */
+.departures-grid { display: grid; grid-template-columns: 1fr; gap: .75rem; }
+.departure-card { padding: 1rem 1.1rem; background: var(--cream-100); border: 1px solid transparent; border-radius: var(--radius-sm); }
+.departure-card--full { opacity: .72; border-color: var(--line); }
+.departure-card__head { display: flex; justify-content: space-between; align-items: flex-start; gap: .75rem; }
+.departure-card h3 { font-family: "Manrope", sans-serif; font-size: .98rem; line-height: 1.4; }
+.status-badge { flex: none; padding: .2rem .55rem; border-radius: 999px; background: #F5DEDA; color: #9B3D33; font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+.departure-card__meta { display: flex; flex-wrap: wrap; gap: .25rem .8rem; margin-top: .45rem; color: var(--slate); font-size: .84rem; }
+.departure-card__meta span::before { content: "·"; margin-right: .4rem; color: var(--gold-700); }
+.departure-card__price { display: block; margin-top: .55rem; color: var(--gold-700); font-size: .9rem; }
+
+/* Tableaux tarifaires détaillés */
+.pricing-details__intro { margin: -.35rem 0 1.1rem; font-size: .96rem; }
+.pricing-accordion details { margin-bottom: .75rem; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--white); }
+.pricing-accordion summary { display: flex; align-items: center; gap: .8rem; padding: 1rem 1.1rem; list-style: none; cursor: pointer; }
+.pricing-accordion summary::-webkit-details-marker { display: none; }
+.pricing-accordion summary:hover { background: var(--cream); }
+.pricing-accordion summary::after { content: "+"; margin-left: auto; color: var(--gold-700); font-size: 1.35rem; }
+.pricing-accordion details[open] summary::after { content: "–"; }
+.pricing-accordion summary b { display: block; color: var(--ink); }
+.pricing-accordion summary small { display: block; margin-top: .15rem; color: var(--slate); font-size: .8rem; font-weight: 500; }
+.pricing-periods { display: grid; grid-template-columns: 1fr; gap: 1rem; padding: 0 1.1rem 1.1rem; }
+.pricing-period { padding: 1rem; background: var(--cream-100); border-radius: var(--radius-sm); }
+.pricing-period h3 { font-family: "Manrope", sans-serif; font-size: .9rem; }
+.pricing-period > p { margin: .15rem 0 .65rem; font-size: .8rem; }
+.pricing-period ul { margin-top: .65rem; }
+.pricing-period li { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; padding: .42rem 0; border-bottom: 1px solid var(--line); color: var(--slate); font-size: .86rem; }
+.pricing-period li:last-child { border-bottom: 0; }
+.pricing-period li b { flex: none; color: var(--ink); font-family: "Fraunces", serif; font-size: .9rem; }
 .booking-card__facts { margin: 1.3rem 0; border-top: 1px solid var(--line); padding-top: 1.2rem; }
 .booking-card__facts li { display: flex; align-items: center; gap: .7rem; margin-bottom: .8rem; font-size: .96rem; color: var(--ink); }
 .booking-card__facts svg { width: 1.2em; height: 1.2em; color: var(--gold-700); flex: none; }
@@ -667,6 +700,12 @@ body::before {
 .contact-info b { display: block; color: var(--ink); font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; }
 .contact-info a, .contact-info span { color: var(--slate); }
 .contact-info a:hover { color: var(--gold-700); }
+.contact-info .agency-contact { padding: 1.1rem; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.agency-contact > div { min-width: 0; }
+.agency-phones { display: flex; flex-wrap: wrap; gap: .6rem 1rem; margin-top: .75rem; }
+.agency-phone { display: grid; gap: .15rem; }
+.agency-phone > a:first-child { color: var(--ink); font-weight: 750; }
+.agency-phone .agency-phone__wa { color: var(--wa-green-d); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
 .map-embed { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
 .map-embed iframe { display: block; width: 100%; height: 320px; border: 0; }
 
@@ -684,6 +723,8 @@ body::before {
   .step { flex-direction: column; gap: .9rem; }
   .step__body { padding-top: .8rem; border-top: 1px solid var(--line); width: 100%; }
   .incl-grid { grid-template-columns: 1fr 1fr; }
+  .departures-grid { grid-template-columns: repeat(2, 1fr); }
+  .pricing-periods { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
   .form-grid { grid-template-columns: 1fr 1fr; }
   .footer-grid { grid-template-columns: 1.6fr 1fr 1fr 1.2fr; }
   .split { grid-template-columns: 1fr 1fr; }
